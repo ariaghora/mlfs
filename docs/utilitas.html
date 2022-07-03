@@ -3931,7 +3931,7 @@ border-left: 4px solid black;
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./aljabar_linear.html" class="sidebar-item-text sidebar-link active">Aljabar linear</a>
+  <a href="./utilitas.html" class="sidebar-item-text sidebar-link active">Fungsi utilitas tambahan</a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -3953,10 +3953,22 @@ border-left: 4px solid black;
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#aljabar-linear" id="toc-aljabar-linear" class="nav-link active" data-scroll-target="#aljabar-linear">Aljabar linear</a>
+  <li><a href="#fungsi-reduce" id="toc-fungsi-reduce" class="nav-link active" data-scroll-target="#fungsi-reduce">Fungsi <em>reduce</em></a>
   <ul class="collapse">
+  <li><a href="#contoh-1-sum" id="toc-contoh-1-sum" class="nav-link" data-scroll-target="#contoh-1-sum">Contoh 1: sum</a></li>
+  <li><a href="#contoh-2-max" id="toc-contoh-2-max" class="nav-link" data-scroll-target="#contoh-2-max">Contoh 2: max</a></li>
+  </ul></li>
+  <li><a href="#aplikasi-reduce-untuk-statistika" id="toc-aplikasi-reduce-untuk-statistika" class="nav-link" data-scroll-target="#aplikasi-reduce-untuk-statistika">Aplikasi <em>reduce</em> untuk statistika</a>
+  <ul class="collapse">
+  <li><a href="#rata-rata" id="toc-rata-rata" class="nav-link" data-scroll-target="#rata-rata">Rata-rata</a></li>
+  <li><a href="#variansi-dan-standar-deviasi" id="toc-variansi-dan-standar-deviasi" class="nav-link" data-scroll-target="#variansi-dan-standar-deviasi">Variansi dan standar deviasi</a></li>
+  </ul></li>
+  <li><a href="#aljabar-linear" id="toc-aljabar-linear" class="nav-link" data-scroll-target="#aljabar-linear">Aljabar linear</a>
+  <ul class="collapse">
+  <li><a href="#transposisi" id="toc-transposisi" class="nav-link" data-scroll-target="#transposisi">Transposisi</a></li>
   <li><a href="#perkalian-matriks" id="toc-perkalian-matriks" class="nav-link" data-scroll-target="#perkalian-matriks">Perkalian matriks</a></li>
   </ul></li>
+  <li><a href="#pemuatan-data" id="toc-pemuatan-data" class="nav-link" data-scroll-target="#pemuatan-data">Pemuatan data</a></li>
   </ul>
 </nav>
     </div>
@@ -3979,42 +3991,72 @@ border-left: 4px solid black;
 
 </header>
 
+<section id="fungsi-reduce" class="level1">
+<h1>Fungsi <em>reduce</em></h1>
+<p><em>Reduce</em> berfungsi untuk mereduksi dimensi suatu ndarray sebanyak 1 dengan cara menerapkan fungsi universal pada suatu dimensi yang direduksi tersebut<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Perhatikan potongan kode di bawah ini:</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> np.multiply.<span class="bu">reduce</span>([<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">5</span>])</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>30</code></pre>
+</div>
+</div>
+<p>Kode di atas mereduksi dimensi array dari 1 (vektor) menjadi dimensi 0 (skalar) dengan cara mengalikan semua elemen array tersebut. Tidak hanya perkalian, kita bisa menggunakan fungsi <em>binary</em> lain, seperti penjumlahan, pengurangan, dll.</p>
+<p>Kita dapat mengimplementasikan fungsi <em>reduce</em> versi kita sendiri.</p>
+<section id="contoh-1-sum" class="level2">
+<h2 class="anchored" data-anchor-id="contoh-1-sum">Contoh 1: sum</h2>
+</section>
+<section id="contoh-2-max" class="level2">
+<h2 class="anchored" data-anchor-id="contoh-2-max">Contoh 2: max</h2>
+</section>
+</section>
+<section id="aplikasi-reduce-untuk-statistika" class="level1">
+<h1>Aplikasi <em>reduce</em> untuk statistika</h1>
+<section id="rata-rata" class="level2">
+<h2 class="anchored" data-anchor-id="rata-rata">Rata-rata</h2>
+</section>
+<section id="variansi-dan-standar-deviasi" class="level2">
+<h2 class="anchored" data-anchor-id="variansi-dan-standar-deviasi">Variansi dan standar deviasi</h2>
+</section>
+</section>
 <section id="aljabar-linear" class="level1">
 <h1>Aljabar linear</h1>
 <p>Bagian ini membahas konsep-konsep aljabar linear yang, menurut penulis, cukup sering digunakan di berbagai aktivitas <em>machine learning</em>.</p>
+<section id="transposisi" class="level2">
+<h2 class="anchored" data-anchor-id="transposisi">Transposisi</h2>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> transpose(arr):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    arr.strides <span class="op">=</span> arr.strides[::<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    arr.shape <span class="op">=</span> arr.shape[::<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    arr.rebuild_index()</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> arr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
 <section id="perkalian-matriks" class="level2">
 <h2 class="anchored" data-anchor-id="perkalian-matriks">Perkalian matriks</h2>
 <p>Perkalian matriks banyak digunakan di berbagai disiplin ilmu yang melibatkan komputasi, termasuk di ranah <em>machine learning</em>.</p>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> transpose(arr):</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    arr.strides <span class="op">=</span> arr.strides[::<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    arr.shape <span class="op">=</span> arr.shape[::<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    arr.rebuild_index()</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> arr</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>...</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> matmul(arr1, arr2):</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(arr1.shape) <span class="op">!=</span> <span class="dv">2</span> <span class="kw">and</span> <span class="bu">len</span>(arr2.shape) <span class="op">!=</span> <span class="dv">2</span>:</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">Exception</span>(<span class="st">&quot;Fungsi ini hanya bisa digunakan untuk ndarray berdimensi 2&quot;</span>)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> arr1.shape[<span class="dv">1</span>] <span class="op">!=</span> arr2.shape[<span class="dv">0</span>]:</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">Exception</span>(</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f&quot;Tidak bisa mengalikan ndarray berbentuk </span><span class="sc">{</span>arr1<span class="sc">.</span>shape<span class="sc">}</span><span class="ss"> dan </span><span class="sc">{</span>arr2<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">&quot;</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    result_data <span class="op">=</span> []</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> <span class="bu">range</span>(arr1.shape[<span class="dv">0</span>]):</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> col <span class="kw">in</span> <span class="bu">range</span>(arr2.shape[<span class="dv">1</span>]):</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>            vec1 <span class="op">=</span> arr1[row]</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>            vec2 <span class="op">=</span> transpose(arr2[:, col])</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>            dot <span class="op">=</span> <span class="bu">sum</span>(multiply(vec1, vec2).as_list())</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>            result_data.append(dot)</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ndarray_from_list(result_data, arr1.shape[<span class="dv">0</span>], arr2.shape[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> ndarray_from_list([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>], <span class="dv">3</span>, <span class="dv">2</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> ndarray_from_list([<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>], <span class="dv">2</span>, <span class="dv">3</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> matmul(x, y)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>print_ndarray(res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> matmul(arr1, arr2):</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(arr1.shape) <span class="op">!=</span> <span class="dv">2</span> <span class="kw">and</span> <span class="bu">len</span>(arr2.shape) <span class="op">!=</span> <span class="dv">2</span>:</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">Exception</span>(<span class="st">&quot;Fungsi ini hanya bisa digunakan untuk ndarray berdimensi 2&quot;</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> arr1.shape[<span class="dv">1</span>] <span class="op">!=</span> arr2.shape[<span class="dv">0</span>]:</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">Exception</span>(</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f&quot;Tidak bisa mengalikan ndarray berbentuk </span><span class="sc">{</span>arr1<span class="sc">.</span>shape<span class="sc">}</span><span class="ss"> dan </span><span class="sc">{</span>arr2<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">&quot;</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    result_data <span class="op">=</span> []</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> <span class="bu">range</span>(arr1.shape[<span class="dv">0</span>]):</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> col <span class="kw">in</span> <span class="bu">range</span>(arr2.shape[<span class="dv">1</span>]):</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>            vec1 <span class="op">=</span> arr1[row]</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>            vec2 <span class="op">=</span> transpose(arr2[:, col])</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>            dot <span class="op">=</span> <span class="bu">sum</span>(multiply(vec1, vec2).as_list())</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>            result_data.append(dot)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ndarray_from_list(result_data, arr1.shape[<span class="dv">0</span>], arr2.shape[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> ndarray_from_list([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>], <span class="dv">3</span>, <span class="dv">2</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> ndarray_from_list([<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>], <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> matmul(x, y)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>print_ndarray(res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>array([[ 3.,  3.,  3.],
        [ 7.,  7.,  7.],
@@ -4034,6 +4076,10 @@ Catatan
 <p>Perkalian matriks adalah permasalahan yang sudah cukup lama dipelajari. Ada satu umum yang digunakan banyak ndarray dalam melakukan perkalian matriks, yaitu (BLAS). Tidak bisa dipungkiri perkalian matriks di buku ini naif dan lambat (selain karena python sendiri bahasa terinterpretasi dan lambat).</p>
 </div>
 </div>
+</section>
+</section>
+<section id="pemuatan-data" class="level1">
+<h1>Pemuatan data</h1>
 <!-- \section{Singular value decomposition (SVD)}
 TODO
 
@@ -4056,9 +4102,14 @@ TODO
 
 
 </section>
-</section>
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1" role="doc-endnote"><p>https://numpy.org/doc/stable/reference/generated/numpy.ufunc.reduce.html<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const icon = "";

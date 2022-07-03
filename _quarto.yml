@@ -35,8 +35,8 @@ website:
         file: pendahuluan.qmd
       - text: Struktur data n-dimensional array
         file: ndarray.qmd
-      - text: Aljabar linear
-        file: aljabar_linear.qmd
+      - text: Fungsi utilitas tambahan
+        file: utilitas.qmd
       - text: Supervised learning 1
         file: supervised_learning_1.qmd
       - text: Penghitungan gradien otomatis

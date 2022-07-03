@@ -77,6 +77,41 @@
     "text": "Operator overloading\nKita bisa melakukan operator overloading sehingga kita bisa melakukan penjumlahan ndarray x dan y dengan cara menuliskan x + y, tanpa harus memanggil fungsi add(x, y). Operator overloading dapat dilakukan dengan cara melakukan override pada dunder method yang relevan. Misal, untuk penjumlahan:\nclass NDArray:\n    def __init__(self):\n        self.data = None\n        self.shape = None\n        self.strides = None\n        self.indices = None  \n    \n    def get_item(self, *index):\n        actual_offset = sum(i * s for i, s in zip(index, self.strides))\n        return self.data[actual_offset] \n\n    def get_size(self):\n        return math.prod(self.shape)\n\n    def as_list(self):\n        result = []\n        for i in range(self.get_size()):\n            index = offset_to_index(self, i)\n            value = self.get_item(*index)\n            result.append(value)\n        return result\n    \n    def rebuild_index(self):  \n        indices = []\n        for s in self.shape:\n            indices.append(list(range(s)))\n        self.indices = indices\n\n    def __getitem__(self, indices):  \n        # Memastikan agar indices berupa iterable\n        indices = (indices,) if not isinstance(indices, tuple) else indices\n        new_indices = []\n        for i, index in enumerate(indices):\n            if isinstance(index, int):\n                new_indices.append([index])\n            elif isinstance(index, slice):\n                start = 0 if index.start is None else index.start\n                step = 1 if index.step is None else index.step\n                stop = self.shape[i] if index.stop is None else index.stop\n                index = list(range(start, stop, step))\n                new_indices.append(index)\n            else:\n                try:\n                    index = [i for i in index]\n                    new_indices.append(index)\n                except:\n                    raise Exception(f\"Indeks tidak valid: {index}\")\n\n        if len(self.shape) > len(indices):\n            new_indices.append(*self.indices[len(indices) :])\n\n        new_shape = [len(index) for index in new_indices]\n        x = NDArray()\n        x.data = self.data\n        x.strides = self.strides\n        x.shape = new_shape\n        x.indices = new_indices\n        return x\n    \n    def __add__(self, other):\n        return add(self, other)\n    \n    def __sub__(self, other):\n        return subtract(self, other)\n    \n    def __mul__(self, other):\n        return multiply(self, other)\n    \n    def __truediv__(self, other):\n        return divide(self, other)\nDaftar lengkap operator yang dapat di-overload dapat dilihat di dokumentasi python1\nMenggunakannya cukup sebagai berikut:\n\nx = ndarray_from_list([1, 2, 3], 3)\ny = ndarray_from_list([1, 2, 3], 3, 1)\n\nprint_ndarray(x)\nprint_ndarray(y)\n\nz = x + y  # menimpa operator + dengan fungsi add\nprint_ndarray(z)\n\nz = x - y  # menimpa operator - dengan fungsi subtract\nprint_ndarray(z)\n\nz = x * y  # menimpa operator * dengan fungsi multiply\nprint_ndarray(z)\n\nz = x / y  # menimpa operator / dengan fungsi divide\nprint_ndarray(z)\n\narray([1., 2., 3.])\narray([[1.],\n       [2.],\n       [3.]])\narray([[2., 3., 4.],\n       [3., 4., 5.],\n       [4., 5., 6.]])\narray([[ 0.,  1.,  2.],\n       [-1.,  0.,  1.],\n       [-2., -1.,  0.]])\narray([[1., 2., 3.],\n       [2., 4., 6.],\n       [3., 6., 9.]])\narray([[1.        , 2.        , 3.        ],\n       [0.5       , 1.        , 1.5       ],\n       [0.33333333, 0.66666667, 1.        ]])\n\n\nDalam komputasi saintifik, notasi ini akan lebih singkat dan mudah dibaca daripada memanggil fungsi secara berantai.\nPembaca dapat bereksplorasi sendiri untuk mengimplementasikan fungsi binary lainnya."
   },
   {
+    "objectID": "utilitas.html",
+    "href": "utilitas.html",
+    "title": "ML From Scratch: Implementasi di balik layar",
+    "section": "",
+    "text": "Reduce berfungsi untuk mereduksi dimensi suatu ndarray sebanyak 1 dengan cara menerapkan fungsi universal pada suatu dimensi yang direduksi tersebut1. Perhatikan potongan kode di bawah ini:\n\nn = np.multiply.reduce([2,3,5])\nprint(n)\n\n30\n\n\nKode di atas mereduksi dimensi array dari 1 (vektor) menjadi dimensi 0 (skalar) dengan cara mengalikan semua elemen array tersebut. Tidak hanya perkalian, kita bisa menggunakan fungsi binary lain, seperti penjumlahan, pengurangan, dll.\nKita dapat mengimplementasikan fungsi reduce versi kita sendiri."
+  },
+  {
+    "objectID": "utilitas.html#rata-rata",
+    "href": "utilitas.html#rata-rata",
+    "title": "ML From Scratch: Implementasi di balik layar",
+    "section": "Rata-rata",
+    "text": "Rata-rata"
+  },
+  {
+    "objectID": "utilitas.html#variansi-dan-standar-deviasi",
+    "href": "utilitas.html#variansi-dan-standar-deviasi",
+    "title": "ML From Scratch: Implementasi di balik layar",
+    "section": "Variansi dan standar deviasi",
+    "text": "Variansi dan standar deviasi"
+  },
+  {
+    "objectID": "utilitas.html#transposisi",
+    "href": "utilitas.html#transposisi",
+    "title": "ML From Scratch: Implementasi di balik layar",
+    "section": "Transposisi",
+    "text": "Transposisi\ndef transpose(arr):\n    arr.strides = arr.strides[::-1]\n    arr.shape = arr.shape[::-1]\n    arr.rebuild_index()\n    return arr"
+  },
+  {
+    "objectID": "utilitas.html#perkalian-matriks",
+    "href": "utilitas.html#perkalian-matriks",
+    "title": "ML From Scratch: Implementasi di balik layar",
+    "section": "Perkalian matriks",
+    "text": "Perkalian matriks\nPerkalian matriks banyak digunakan di berbagai disiplin ilmu yang melibatkan komputasi, termasuk di ranah machine learning.\n...\n\ndef matmul(arr1, arr2):\n    if len(arr1.shape) != 2 and len(arr2.shape) != 2:\n        raise Exception(\"Fungsi ini hanya bisa digunakan untuk ndarray berdimensi 2\")\n\n    if arr1.shape[1] != arr2.shape[0]:\n        raise Exception(\n            f\"Tidak bisa mengalikan ndarray berbentuk {arr1.shape} dan {arr2.shape}\"\n        )\n\n    result_data = []\n    for row in range(arr1.shape[0]):\n        for col in range(arr2.shape[1]):\n            vec1 = arr1[row]\n            vec2 = transpose(arr2[:, col])\n            dot = sum(multiply(vec1, vec2).as_list())\n            result_data.append(dot)\n    return ndarray_from_list(result_data, arr1.shape[0], arr2.shape[1])\n\nx = ndarray_from_list([1, 2, 3, 4, 5, 6], 3, 2)\ny = ndarray_from_list([1, 1, 1, 1, 1, 1], 2, 3)\nres = matmul(x, y)\nprint_ndarray(res)\n\narray([[ 3.,  3.,  3.],\n       [ 7.,  7.,  7.],\n       [11., 11., 11.]])\n\n\n\n\n\n\n\n\nCatatan\n\n\n\nPerkalian matriks adalah permasalahan yang sudah cukup lama dipelajari. Ada satu umum yang digunakan banyak ndarray dalam melakukan perkalian matriks, yaitu (BLAS). Tidak bisa dipungkiri perkalian matriks di buku ini naif dan lambat (selain karena python sendiri bahasa terinterpretasi dan lambat)."
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "ML From Scratch: Implementasi di balik layar",
@@ -103,13 +138,6 @@
     "title": "ML From Scratch: Implementasi di balik layar",
     "section": "",
     "text": "In summary, this book has no content whatsoever. \\vecx"
-  },
-  {
-    "objectID": "aljabar_linear.html",
-    "href": "aljabar_linear.html",
-    "title": "ML From Scratch: Implementasi di balik layar",
-    "section": "",
-    "text": "Bagian ini membahas konsep-konsep aljabar linear yang, menurut penulis, cukup sering digunakan di berbagai aktivitas machine learning.\n\n\nPerkalian matriks banyak digunakan di berbagai disiplin ilmu yang melibatkan komputasi, termasuk di ranah machine learning.\ndef transpose(arr):\n    arr.strides = arr.strides[::-1]\n    arr.shape = arr.shape[::-1]\n    arr.rebuild_index()\n    return arr\n\n...\n\ndef matmul(arr1, arr2):\n    if len(arr1.shape) != 2 and len(arr2.shape) != 2:\n        raise Exception(\"Fungsi ini hanya bisa digunakan untuk ndarray berdimensi 2\")\n\n    if arr1.shape[1] != arr2.shape[0]:\n        raise Exception(\n            f\"Tidak bisa mengalikan ndarray berbentuk {arr1.shape} dan {arr2.shape}\"\n        )\n\n    result_data = []\n    for row in range(arr1.shape[0]):\n        for col in range(arr2.shape[1]):\n            vec1 = arr1[row]\n            vec2 = transpose(arr2[:, col])\n            dot = sum(multiply(vec1, vec2).as_list())\n            result_data.append(dot)\n    return ndarray_from_list(result_data, arr1.shape[0], arr2.shape[1])\n\nx = ndarray_from_list([1, 2, 3, 4, 5, 6], 3, 2)\ny = ndarray_from_list([1, 1, 1, 1, 1, 1], 2, 3)\nres = matmul(x, y)\nprint_ndarray(res)\n\narray([[ 3.,  3.,  3.],\n       [ 7.,  7.,  7.],\n       [11., 11., 11.]])\n\n\n\n\n\n\n\n\nCatatan\n\n\n\nPerkalian matriks adalah permasalahan yang sudah cukup lama dipelajari. Ada satu umum yang digunakan banyak ndarray dalam melakukan perkalian matriks, yaitu (BLAS). Tidak bisa dipungkiri perkalian matriks di buku ini naif dan lambat (selain karena python sendiri bahasa terinterpretasi dan lambat)."
   },
   {
     "objectID": "autograd.html",
