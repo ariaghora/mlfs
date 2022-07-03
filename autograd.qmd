@@ -1,0 +1,8 @@
+# Penghitungan gradien otomatis (autograd)
+
+Penulis berasumsi bahwa pembaca dapat memahami _mental model_ dasar dari suatu struktur data ndarray.
+Pembahasan ndarray dicukupkan, dan pada bagian ini kita sudah bisa beralih menggunakan NumPy agar dapat melakukan komputasi dengan lebih cepat.
+
+# Operasi pada ndarray sebagai komputasi graf
+
+# Autograd dengan mode _backward_

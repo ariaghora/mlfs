@@ -1,0 +1,87 @@
+# Supervised learning 1
+
+Dataset untuk supervised learning dapat direpresentasikan sebagai himpunan pasangan vektor fitur $\left\{ (\mathbf{x}_i, y_i) \right\}$, dimana $y_i$ adalah label dari data ke-$i$ dan $x_{i,j}$ adalah fitur ke-$j$ pada $\mathbf{x}_i$.
+
+
+# _Linear regression_
+
+Model dasar _linear regression_: 
+
+$$
+\hat{y}_i = \beta_0 + \beta_1 x_{i,1} + ... + \beta_n x_{i,n} + \epsilon
+$$
+
+$\mathbf{x}_i = (x_0, x_1, ..., x_n)^\top$ di mana $x_0 = 1$ dan $x_1$ hingga $x_n$ adalah fitur dari sampel $i$.
+
+Terma $\epsilon$ adalah residual atau error, $\epsilon \sim \mathcal{N}(\mu, \sigma^2)$. 
+
+$$
+\begin{align}
+	y_i &= f(\mathbf{x}_i)+\epsilon\\
+	    &= \mathbf{x}_i\pmb{\beta}+\epsilon
+\end{align}
+$${#eq-regresi-linear}
+
+Untuk memperoleh $\pmb{\beta}$ yang optimal, kita perlu mencari elemen-elemennya yang meminimalkan error sebagai _loss function_ $E(f;\pmb{\beta})$, yang terukur oleh _sum squared error_ (SSE) sebagai berikut.
+
+
+$$
+E(f;\pmb{\beta}) = \sum_{i=0}^m (\mathbf{x}_i \pmb{\beta} - y_i)^2.
+$${#eq-mse-reg}
+
+Error tersebut dapat diminimalkan dengan mencari turunannya terhadap $\pmb{\beta}$,
+
+$$
+\frac{d}{d\pmb{\beta}} \cdot E(f;\pmb{\beta})
+$${#eq-mse-diff}
+
+## _Ordinary least squares_ (OLS)
+
+Kita dapat merepresentasikan semua sampel dalam bentuk matriks $\mathbf{X} \in \mathbb{R}^{m \times n}$, di mana baris ke-$i$ mewakili vektor _feature_ $\mathbf{x}_i$.
+Persamaan \ref{eq:mse_reg} dapat ditulis ulang dengan lebih ringkas sebagai berikut.
+$$
+E(f;\pmb{\beta}) = \lVert \mathbf{X}\pmb{\beta} - \mathbf{y} \rVert^2
+% \label{eq:mse_matrix_form}
+$$
+
+
+Dengan substitusikan ruas kanan persamaan \ref{eq:mse_matrix_form} ke persamaan \ref{eq:mse_diff}, dan menyamakan hasil turunan dengan 0, kita memperoleh nilai optimal dari parameter $\pmb{\beta}$ sebagai berikut.
+$$
+\begin{align}
+	\frac{d}{d\pmb{\beta}} \cdot E(f;\pmb{\beta}) &= 2\mathbf{X}^\top(\mathbf{X}\pmb{\beta}-\mathbf{y})\\
+	0 &=2(\mathbf{X}^\top\mathbf{X})\pmb{\beta}-2\mathbf{X}^\top \mathbf{y}\\
+	(\mathbf{X}^\top\mathbf{X})\pmb{\beta} &= \mathbf{X}^\top \mathbf{y}\\
+	\widehat{\pmb{\beta}} &=(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top 
+    \mathbf{y}.
+\end{align}
+% \label{eq:beta_est}
+$$
+Berikut ini adalah contoh implementasi OLS pada python.
+
+```{python}
+#| eval: false
+from sklearn.datasets import make_regression
+
+X, y = make_regression(n_samples=100, n_targets=1)
+
+# Tambah variabel intercept
+X = hstack([ones((X.shape[0], 1)), X])
+
+beta = inv(X.T @ X) @ X.T @ y
+
+y_hat = X @ beta
+
+```
+
+Masalah utama dari OLS adalah operasi inverse yang mahal.
+Perhatikan persamaan \ref{eq:beta_est}, di mana kita perlu menghitung $(\mathbf{X}^\top\mathbf{X})^\dagger$.
+Andaikan ada 10000 sampel, maka pada akhirnya kita perlu menghitung invers dari suatu matriks berukuran $10000 \times 10000$.
+Selain itu, diketahui bahwa algoritma invers memiliki kompleksitas $O(n^3)$.
+Kita membutuhkan alat yang lebih tepat, terlebih jika sudah berurusan dengan _big data_.
+
+
+# Algoritma _gradient descent_
+
+# _Logistic regression_
+
+# _Multi-layer perceptron_

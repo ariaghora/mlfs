@@ -32,6 +32,12 @@ website:
         file: pendahuluan.qmd
       - text: Struktur data n-dimensional array
         file: ndarray.qmd
+      - text: Aljabar linear
+        file: aljabar_linear.qmd
+      - text: Supervised learning 1
+        file: supervised_learning_1.qmd
+      - text: Penghitungan gradien otomatis
+        file: autograd.qmd
   page-footer:
     left: "Copyright 2022, Aria Ghora Prabono"
     right:

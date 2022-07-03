@@ -1,0 +1,228 @@
+```{python}
+#| echo: false
+
+import math
+import numpy as np
+import pprint
+
+
+class NDArray:
+    def __init__(self):
+        self.data = None
+        self.shape = None
+        self.strides = None
+        self.indices = None  
+    
+    def get_item(self, *index):
+        actual_offset = sum(i * s for i, s in zip(index, self.strides))
+        return self.data[actual_offset]	
+
+    def get_size(self):
+        return math.prod(self.shape)
+
+    def as_list(self):
+        result = []
+        for i in range(self.get_size()):
+            index = offset_to_index(self, i)
+            value = self.get_item(*index)
+            result.append(value)
+        return result
+    
+    def rebuild_index(self):  
+        indices = []
+        for s in self.shape:
+            indices.append(list(range(s)))
+        self.indices = indices
+
+    def __getitem__(self, indices):  
+        # Memastikan agar indices berupa iterable
+        indices = (indices,) if not isinstance(indices, tuple) else indices
+        new_indices = []
+        for i, index in enumerate(indices):
+            if isinstance(index, int):
+                new_indices.append([index])
+            elif isinstance(index, slice):
+                start = 0 if index.start is None else index.start
+                step = 1 if index.step is None else index.step
+                stop = self.shape[i] if index.stop is None else index.stop
+                index = list(range(start, stop, step))
+                new_indices.append(index)
+            else:
+                try:
+                    index = [i for i in index]
+                    new_indices.append(index)
+                except:
+                    raise Exception(f"Indeks tidak valid: {index}")
+
+        if len(self.shape) > len(indices):
+            new_indices.append(*self.indices[len(indices) :])
+
+        new_shape = [len(index) for index in new_indices]
+        x = NDArray()
+        x.data = self.data
+        x.strides = self.strides
+        x.shape = new_shape
+        x.indices = new_indices
+        return x
+    
+    def __add__(self, other):
+        return add(self, other)
+    
+    def __sub__(self, other):
+        return subtract(self, other)
+    
+    def __mul__(self, other):
+        return multiply(self, other)
+    
+    def __truediv__(self, other):
+        return divide(self, other)
+
+
+def ndarray_from_list(lst, *shape):
+    if len(lst) != math.prod(shape):
+        raise Exception(
+            f"List dengan panjang {len(lst)} tidak bisa dijadikan ndarray berbentuk {shape}"
+        )
+    x = NDArray()
+    x.data = lst
+    x.shape = list(shape)
+    x.strides = shape_to_strides(shape)
+    x.rebuild_index()
+    return x	
+
+
+def shape_to_strides(shape):
+    strides = []
+    for i in range(len(shape)):
+        prod = 1
+        for j in range(i + 1, len(shape)):
+            prod *= shape[j]
+        strides.append(prod)
+    return strides
+
+
+def offset_to_index(arr, offset):
+    index = [None for _ in range(len(arr.shape))]
+    tmp_offset = offset
+    for i in reversed(range(len(arr.shape))):
+        index[i] = arr.indices[i][int(tmp_offset % arr.shape[i])]
+        tmp_offset /= arr.shape[i]
+    return index
+
+
+def print_ndarray(arr):
+    # Walau menggunakan numpy, data dan shape tetap berdasarkan 
+    # implementasi kita sendiri
+    x = np.array([float(i) for i in arr.as_list()]).reshape(*arr.shape)
+    print(x.__repr__())
+
+
+def debug_print(arr):
+    info = dict(
+        actual_data=arr.data,
+        intended_data=arr.as_list(),
+        shape=arr.shape,
+        strides=arr.strides,
+        indices=arr.indices,
+    )
+    pprint.pprint(info)
+
+
+def broadcast(arr1, arr2):
+    # Kedua ndarray berukuran sama, tidak ada yang perlu dilakukan, dan
+    # langsung kembali
+    if arr1.shape == arr2.shape:
+        return arr1, arr2
+
+    # Jumlah dimensi baru yang akan menjadi target
+    new_ndims = max(len(arr1.shape), len(arr2.shape))
+
+    # Aturan 1
+    new_shape_1 = [1 for _ in range(new_ndims - len(arr1.shape))] + arr1.shape
+    new_shape_2 = [1 for _ in range(new_ndims - len(arr2.shape))] + arr2.shape
+    # Karena melibatkan strides, maka harus kita sesuaikan juga. Strides pada dimensi
+    # yang di-expand, perlu di-set menjadi 0
+    new_strides_1 = [0 for _ in range(new_ndims - len(arr1.strides))] + arr1.strides
+    new_strides_2 = [0 for _ in range(new_ndims - len(arr2.strides))] + arr2.strides
+
+    for i in range(new_ndims):
+        # Aturan 2
+        if new_shape_1[i] != new_shape_2[i]:
+            if new_shape_1[i] < new_shape_2[i] and new_shape_1[i] <= 1:
+                new_strides_1[i] = 0
+                new_shape_1[i] = new_shape_2[i]
+            elif new_shape_2[i] < new_shape_1[i] and new_shape_2[i] <= 1:
+                new_strides_2[i] = 0
+                new_shape_2[i] = new_shape_1[i]
+            else:
+                # Aturan 3
+                raise Exception(
+                    "Tidak bisa melakukan broadcasting pada array dengan bentuk {arr1.shape} dan {arr2.shape}"
+                )
+    new_arr1 = NDArray()
+    new_arr1.data = arr1.data
+    new_arr1.shape = new_shape_1
+    new_arr1.strides = new_strides_1
+    new_arr1.rebuild_index()
+
+    new_arr2 = NDArray()
+    new_arr2.data = arr2.data
+    new_arr2.shape = new_shape_2
+    new_arr2.strides = new_strides_2
+    new_arr2.rebuild_index()
+
+    return new_arr1, new_arr2
+
+
+def ufunc(arr, func):
+    new_data = []
+    for val in arr.data:
+        new_data.append(func(val))
+
+    x = NDArray()
+    x.data = new_data
+    x.shape = arr.shape
+    x.strides = arr.strides
+    x.indices = arr.indices
+    return x
+
+
+def bfunc(arr1, arr2, func):
+    # Pertama, pastikan shape arr1 dan arr2 kompatibel
+    arr1, arr2 = broadcast(arr1, arr2)
+    
+    data1 = arr1.as_list()
+    data2 = arr2.as_list()
+
+    new_data = []
+    for x, y in zip(data1, data2):
+        new_data.append(func(x, y))
+
+    return ndarray_from_list(new_data, *arr1.shape)
+    
+
+def exp(arr):
+    # kita bisa menggunakan mem-pass lambda function
+    return ufunc(arr, lambda x: math.exp(x))
+
+
+def sin(arr):
+    # kita juga bisa langsung mem-pass fungsi dari module math
+    return ufunc(arr, math.sin)
+
+def add(arr1, arr2):
+    return bfunc(arr1, arr2, lambda x, y: x + y)
+
+
+def subtract(arr1, arr2):
+    return bfunc(arr1, arr2, lambda x, y: x - y)
+
+
+def multiply(arr1, arr2):
+    return bfunc(arr1, arr2, lambda x, y: x * y)
+
+
+def divide(arr1, arr2):
+    return bfunc(arr1, arr2, lambda x, y: x / y)
+    
+```

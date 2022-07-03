@@ -30,7 +30,7 @@ Biasanya ia digunakan untuk merepresentasikan data.
 Misal, data tabel dapat direpresentasikan dengan ndarray 2 dimensi berbentuk $N_{baris} \times N_{kolom}$.
 Data citra dapat direpresentasikan dengan ndarray 4 dimensi berbentuk $N_{sampel} \times N_{panjang} \times N_{lebar} \times N_{channel}$.
 
-\section{Layout pada memori}
+# Layout pada memori
 Walau bertajuk _$n$-dimensional array_, data numerik pada ndarray sebetulnya tidak tersusun berupa array dalam array (dalam array (dalam array (...))). 
 Melainkan, data disimpan dalam format array 1 dimensi di memori.
 Ambil contoh NumPy ndarray berbentuk dengan 3 kolom dan 3 baris seperti ini:
@@ -97,7 +97,7 @@ $$
     offset = \sum_{i=0}^{N-1} s_i n_i 
 $$ {#eq-offset-general}
 
-## Implementasi
+# Implementasi
 
 Dengan beberapa konsep di atas, kita siap untuk memulai implementasinya.
 Kita akan menyiapkan satu kelas utama yang akan menjadi representasi tipe data ndarray.
@@ -112,7 +112,7 @@ Selain itu, sudah banyak optimasi yang dilakukan secara intensif oleh ratusan ko
 :::
 
 
-\subsection{Sketsa awal ndarray}
+## Sketsa awal ndarray
 Kita mulai dengan sebuah kelas `NDArray`, yaitu kelas utama untuk struktur data ndarray, dengan 3 properties utama: `data`, `shape`, dan `strides`.
 Selain itu, sertakan juga fungsi untuk membuat ndarray dari python list, `ndrray_from_list()`.
 Di fungsi `ndarray_from_list()`, argumen untuk parameter `lst` akan menjadi data bagi ndarray baru.
@@ -371,7 +371,7 @@ Untuk contoh di atas, ekspresi `len(self.data)` akan menghasilkan nilai 3, semen
 Maka, `prod(self.shape)` lebih tepat, karena ukuran ndarray selalu bergantung pada bentuknya.
 
 
-## Melakukan _indexing_ pada ndarray
+# Melakukan _indexing_ pada ndarray
 
 _Indexing_ adalah operasi yang bertujuan untuk mengambil atau menyeleksi elemen-elemen dari array.
 Elemen-elemen ini diakses dengan suatu _index_, yaitu sesuatu yang menunjukkan lokasi elemen di suatu ndarray.
@@ -553,7 +553,7 @@ print_ndarray(x[:, 1])
 ```
 
 
-## Fungsi universal
+# Fungsi universal
 
 Meminjam istilah dari NumPy, fungsi universal _(universal function)_ mengacu pada fungsi matematis yang dapat digunakan pada ndarray.
 Fungsi universal bisa meliputi fungsi trigonometri, fungsi aritmatika, fungsi statistika, dan sebagainya.
@@ -565,7 +565,7 @@ Di implementasi kita, fungsi universal memiliki karakteristik sebagai berikut:
 - Terbatas fungsi _unary_ dan _binary_ saja
 
 
-### Fungsi _unary_
+## Fungsi _unary_
 
 Fungsi unary adalah fungsi yang memiliki 1 parameter. 
 Sebagai contoh, $\sin(x)$, $\log(x)$, $\exp(x)$ adalah contoh fungsi _unary_.
@@ -621,7 +621,7 @@ print_ndarray(exp(x))
 ```
 
 
-### Fungsi _binary_
+## Fungsi _binary_
 
 Jika fungsi _unary_ memiliki satu parameter, fungsi _binary_ memiliki dua parameter.
 Banyak operasi aritmatika yang dapat direpresentasikan oleh fungsi _binary_, seperti penjumlahan, perkalian, pengurangan, dan sebagainya.
@@ -629,7 +629,7 @@ Fungsi _binary_ sebagai fungsi penjumlahan dua ndarray akan bekerja selayaknya p
 Karena itulah, bentuk dari kedua ndarray harus kompatibel.
 Jika salah satu atau kedua ndarray yang akan kita masukkan dalam fungsi _binary_ memiliki bentuk berbeda, maka kita perlu melakukan _broadcasting_.
 
-## _Broadcasting_
+### _Broadcasting_
 Di bagian awal kita sudah menyinggung sedikit tentang broadcasting, proses penyesuaian bentuk dua ndarray sehingga keduanya memiliki bentuk yang kompatibel.
 _Broadcasting_ diperlukan saat kita akan melakukan fungsi _binary_, karena kita perlu menerapkan fungsi per-elemen, dan masing-masing elemen di ndarray pertama berkorespondensi satu-satu dengan elemen di ndarray kedua (dengan koordinat yang sama).
 
@@ -702,7 +702,7 @@ def broadcast(arr1, arr2):
     
 ```
 
-## _Broadcasting_ untuk fungsi _binary_
+### _Broadcasting_ untuk fungsi _binary_
 Dengan diimplementasikannya fungsi _broadcasting_, implementasi fungsi _binary_ akan menjadi mudah.
 Katakanlah, kita ingin mengimplementasikan fungsi `add`, `subtract`, `multiply`, dan `divide`.
 Yang perlu dilakukan mirip seperti apa yang kita lakukan dengan fungsi _unary_:
