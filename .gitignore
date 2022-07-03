@@ -2,3 +2,4 @@ _book/
 .quarto/
 .vscode/
 .DS_Store
+/.quarto/

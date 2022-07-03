@@ -62,6 +62,6 @@ Vektor dinotasikan dengan aksara Latin atau Yunani non-kapital cetak tebal $\mat
 Elemen skalar ke-$i$ dari vektor $\mathbf{x}$ dinotasikan dengan $x_i$.
 Matriks dinotasikan dengan aksara Latin atau Yunani kapital cetak tebal $\mathbf{X}$, $\mathbf{Y}$, $\mathbf{\Sigma}$ 
 Elemen baris ke-$i$ kolom ke-$j$ suatu matriks $\mathbf{X}$ dinotasikan dengan $x_{i,j}$.
-Himpunan (\textit{set}) dinotasikan dengan huruf yang dicetak kaligrafis, seperti $\mathcal{X}$, $\mathcal{S}$, atau $\mathcal{L}$.
+Himpunan (_set_) dinotasikan dengan huruf yang dicetak kaligrafis, seperti $\mathcal{X}$, $\mathcal{S}$, atau $\mathcal{L}$.
 Himpunan bilangan riil dinotasikan dengan $\mathbb{R}$.
 Matriks $\mathbf{X}$ dari himpunan bilangan riil berukuran $m \times n$ kadang dinotasikan dengan $\mathbf{X}\in\mathbb{R}^{m \times n}$.

@@ -2,29 +2,29 @@
   {
     "objectID": "ndarray.html",
     "href": "ndarray.html",
-    "title": "",
+    "title": "ML From Scratch: Implementasi di balik layar",
     "section": "",
-    "text": "https://docs.python.org/3/reference/datamodel.html#emulating-numeric-types↩︎"
+    "text": "References\n\nAbadi, Martı́n, Ashish Agarwal, Paul Barham, Eugene Brevdo, Zhifeng Chen, Craig Citro, Greg S. Corrado, et al. 2015. “TensorFlow: Large-Scale Machine Learning on Heterogeneous Systems.” https://www.tensorflow.org/.\n\n\nHarris, Charles R., K. Jarrod Millman, Stéfan J. van der Walt, Ralf Gommers, Pauli Virtanen, David Cournapeau, Eric Wieser, et al. 2020. “Array Programming with NumPy.” Nature 585 (7825): 357–62. https://doi.org/10.1038/s41586-020-2649-2.\n\n\nPaszke, Adam, Sam Gross, Francisco Massa, Adam Lerer, James Bradbury, Gregory Chanan, Trevor Killeen, et al. 2019. “PyTorch: An Imperative Style, High-Performance Deep Learning Library.” In Advances in Neural Information Processing Systems 32, edited by H. Wallach, H. Larochelle, A. Beygelzimer, F. dAlché-Buc, E. Fox, and R. Garnett, 8024–35. Curran Associates, Inc. http://papers.neurips.cc/paper/9015-pytorch-an-imperative-style-high-performance-deep-learning-library.pdf.\n\nFootnotes\n\n\nhttps://docs.python.org/3/reference/datamodel.html#emulating-numeric-types↩︎"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "",
+    "title": "ML From Scratch: Implementasi di balik layar",
     "section": "",
     "text": "Kata pengantar"
   },
   {
     "objectID": "summary.html",
     "href": "summary.html",
-    "title": "",
+    "title": "ML From Scratch: Implementasi di balik layar",
     "section": "",
-    "text": "In summary, this book has no content whatsoever. \\(\\vecx\\)"
+    "text": "In summary, this book has no content whatsoever. \\vecx"
   },
   {
     "objectID": "pendahuluan.html",
     "href": "pendahuluan.html",
-    "title": "",
+    "title": "ML From Scratch: Implementasi di balik layar",
     "section": "",
-    "text": "Machine learning, atau dalam Bahasa Indonesianya pembelajaran mesin, adalah cabang dari disiplin ilmu kecerdasan buatan yang berfokus membangun sistem cerdas yang mampu belajar dari data.\n\n\n\nMaksud dari di balik layar ialah implementasi berbagai aspek machine learning yang terjadi di balik layar dari awal, dengan sedikit (hingga tanpa) library tambahan. Walau implementasi dilakukan mulai awal, secara bertahap pembaca akan diperkenalkan dengan library tambahan yang penting.\nMengapa harus from scratch sementara sudah ada banyak pustaka di luar sana (NumPy, scikit-learn, PyTorch, dan lainnya)? Mengutip Grus (2019):\n\nLangsung menggunakan pustaka adalah cara yang bagus untuk memulai melakukan data science tanpa memahami data science itu sendiri.\n\nPenulis meyakini bahwa hal itu juga berlaku pada machine learning. Cara terbaik untuk menggunakan pustaka machine learning secara efektif dan komprehensif adalah dengan mengalami proses pembuatannya sendiri.\n\n\n\nBagian yang memerlukan perhatian khusus akan dicetak dengan format kotak berwarna biru seperti di bawah ini.\n\n\n\n\n\n\nCatatan\n\n\n\nIsi pesan catatan di sini\n\n\nKadang kala ada tips dan trik yang mungkin membantu pembaca. Bagian ini akan dicetak dengan kotak berwarna hijau seperti berikut.\n\n\n\n\n\n\nTips\n\n\n\nIsi pesan tips di sini\n\n\nPotongan kode atau bagian kode dalam paragraf (inline) dicetak dengan font monospaced. Blok kode diformat dengan syntax highlighting seperti berikut ini.\nimport numpy as np\n\nprint(\"Hai\")\nfruits = [\"banana\", \"apple\", \"orange\"]\n\nfor fruit in fruits:\n    print(fruit)\nKadang potongan kode juga akan disertai output yang akan dicetak di bawahnya.\n\na = 10\nb = 20\nprint(\"Hasil penjumlahan:\", a + b)\n\nHasil penjumlahan: 30\n\n\n\n\n\nDemi konsistensi, penulis menetapkan konvensi penulisan notasi matematika. Variabel bernilai skalar dinotasikan dengan aksara Latin atau Yunani non-kapital cetak miring, seperti \\(x\\), \\(y\\), \\(\\alpha\\), atau \\(\\beta\\). Vektor dinotasikan dengan aksara Latin atau Yunani non-kapital cetak tebal \\(\\mathbf{x}\\), \\(\\mathbf{y}\\). Elemen skalar ke-\\(i\\) dari vektor \\(\\mathbf{x}\\) dinotasikan dengan \\(x_i\\). Matriks dinotasikan dengan aksara Latin atau Yunani kapital cetak tebal \\(\\mathbf{X}\\), \\(\\mathbf{Y}\\), \\(\\mathbf{\\Sigma}\\) Elemen baris ke-\\(i\\) kolom ke-\\(j\\) suatu matriks \\(\\mathbf{X}\\) dinotasikan dengan \\(x_{i,j}\\). Himpunan () dinotasikan dengan huruf yang dicetak kaligrafis, seperti \\(\\mathcal{X}\\), \\(\\mathcal{S}\\), atau \\(\\mathcal{L}\\). Himpunan bilangan riil dinotasikan dengan \\(\\mathbb{R}\\). Matriks \\(\\mathbf{X}\\) dari himpunan bilangan riil berukuran \\(m \\times n\\) kadang dinotasikan dengan \\(\\mathbf{X}\\in\\mathbb{R}^{m \\times n}\\).\n\n\n\n\nGrus, Joel. 2019. Data Science from Scratch: First Principles with Python. O’Reilly Media."
+    "text": "References\n\nGrus, Joel. 2019. Data Science from Scratch: First Principles with Python. O’Reilly Media."
   }
 ]

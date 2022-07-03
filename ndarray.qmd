@@ -626,7 +626,7 @@ Fungsi _binary_ sebagai fungsi penjumlahan dua ndarray akan bekerja selayaknya p
 Karena itulah, bentuk dari kedua ndarray harus kompatibel.
 Jika salah satu atau kedua ndarray yang akan kita masukkan dalam fungsi _binary_ memiliki bentuk berbeda, maka kita perlu melakukan _broadcasting_.
 
-### _Broadcasting_
+## _Broadcasting_
 Di bagian awal kita sudah menyinggung sedikit tentang broadcasting, proses penyesuaian bentuk dua ndarray sehingga keduanya memiliki bentuk yang kompatibel.
 _Broadcasting_ diperlukan saat kita akan melakukan fungsi _binary_, karena kita perlu menerapkan fungsi per-elemen, dan masing-masing elemen di ndarray pertama berkorespondensi satu-satu dengan elemen di ndarray kedua (dengan koordinat yang sama).
 
