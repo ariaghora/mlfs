@@ -20,8 +20,11 @@ format:
 
 website:
   sidebar:
-    style: docked
+    style: floating
     search: false
+    title: ML From Scratch
+    subtitle: implementasi di balik layar
+    alignment: center
     contents:
       - text: Muka
         file: index.qmd
@@ -29,3 +32,10 @@ website:
         file: pendahuluan.qmd
       - text: Struktur data n-dimensional array
         file: ndarray.qmd
+  page-footer:
+    left: "Copyright 2022, Aria Ghora Prabono"
+    right:
+      - icon: twitter
+        href: https://twitter.com/aria_ghora
+      - icon: github
+        href: https://github.com/ariaghora

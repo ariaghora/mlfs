@@ -7,6 +7,13 @@
     "text": "References\n\nAbadi, Martı́n, Ashish Agarwal, Paul Barham, Eugene Brevdo, Zhifeng Chen, Craig Citro, Greg S. Corrado, et al. 2015. “TensorFlow: Large-Scale Machine Learning on Heterogeneous Systems.” https://www.tensorflow.org/.\n\n\nHarris, Charles R., K. Jarrod Millman, Stéfan J. van der Walt, Ralf Gommers, Pauli Virtanen, David Cournapeau, Eric Wieser, et al. 2020. “Array Programming with NumPy.” Nature 585 (7825): 357–62. https://doi.org/10.1038/s41586-020-2649-2.\n\n\nPaszke, Adam, Sam Gross, Francisco Massa, Adam Lerer, James Bradbury, Gregory Chanan, Trevor Killeen, et al. 2019. “PyTorch: An Imperative Style, High-Performance Deep Learning Library.” In Advances in Neural Information Processing Systems 32, edited by H. Wallach, H. Larochelle, A. Beygelzimer, F. dAlché-Buc, E. Fox, and R. Garnett, 8024–35. Curran Associates, Inc. http://papers.neurips.cc/paper/9015-pytorch-an-imperative-style-high-performance-deep-learning-library.pdf.\n\nFootnotes\n\n\nhttps://docs.python.org/3/reference/datamodel.html#emulating-numeric-types↩︎"
   },
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "ML From Scratch: Implementasi di balik layar",
+    "section": "",
+    "text": "Halaman muka"
+  },
+  {
     "objectID": "summary.html",
     "href": "summary.html",
     "title": "ML From Scratch: Implementasi di balik layar",

@@ -42,7 +42,9 @@ print(x)
 ```
 Namun, sebenarnya yang tersimpan di memori akan berupa array flat, kurang lebih (jika dibayangkan) akan seperti pada Gambar @fig-linear-layout.
 
+:::{layout=[[-2,6,-2]]}
 ![Layout _linear_](figures/ndarray/linear-layout.png){#fig-linear-layout}
+:::
 
 Pada praktiknya, saat kita mengakses elemen dengan indeks baris $i$ dan kolom $j$, indeks $(i,j)$ tersebut akan dikonversi menjadi _offset_ yang menentukan lokasi elemen pada array 1 dimensi di memori.
 Ini diilustrasikan pada Gambar @fig-index-vs-offset.
@@ -385,7 +387,6 @@ Ini diilustrasikan di Gambar @fig-simple-indexing.
 
 ![Ilustrasi _indexing_ sederhana (mengakses elemen dengan index 0) saat `x` berdimensi 1, 2, dan 3](figures/ndarray/simple-indexing.png){#fig-simple-indexing}
 
-
 ### _Indexing_ dengan _integer array_
 
 Indexing dengan _integer array_ memungkinkan kita untu menyeleksi sembarang elemen pada suatu ndarray berdasarkan indeks pada dimensi-dimensinya.
@@ -396,7 +397,9 @@ Ini artinya, pada dimensi pertama (baris), elemen di indeks $0, 1$, dan $2$ dipi
 Kemudian, pada dimensi kedua (kolom), hanya yang berindeks $0$ dan $2$ yang diseleksi.
 Proses seleksi ini dan hasilnya ditunjukkan pada Gambar @fig-integer-array-indexing.
 
+:::{layout=[[-2,6,-2]]}
 ![Ilustrasi _indexing_ dengan _integer array_](figures/ndarray/integer_array_indexing.png){#fig-integer-array-indexing}
+:::
 
 ### _Indexing_ dengan _slicing_
 Selayaknya elemen dari python list yang bisa di-_slice_, `x[:5]` ndarray yang kita implementasikan juga dapat melakukan _indexing_ dengan _slicing_.
