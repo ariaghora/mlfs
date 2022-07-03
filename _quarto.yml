@@ -4,13 +4,16 @@ project:
 
 bibliography: references.bib
 
+highlight-style: dracula
+
 format:
   html:
     title: "ML From Scratch: Implementasi di balik layar"
     cover-image: cover.png
     toc: true
     html-math-method: katex
-    theme: cosmo
+    theme: lumen
+    css: extra.css
     standalone: true
     self-contained: true
     crossref:

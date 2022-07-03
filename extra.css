@@ -1,0 +1,14 @@
+.sidebar-item {
+    list-style: square
+}
+
+.sourceCode {
+    font-size: 14px;
+}
+
+.cell-output {
+    font-size: 14px;
+    background-color: #dedede;
+    /* border-radius: .25rem; */
+    border-left: 4px solid black;
+}
