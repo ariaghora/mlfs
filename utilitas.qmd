@@ -13,9 +13,55 @@ Tidak hanya perkalian, kita bisa menggunakan fungsi _binary_ lain, seperti penju
 
 Kita dapat mengimplementasikan fungsi _reduce_ versi kita sendiri.
 
+```{python}
+def reduce_at_dim(arr, dim, func, keep_dim=False):
+    indices = [list(range(n)) for n in arr.shape]
+    indices[dim] = 0
+    result = arr[indices].as_list()
+
+    for i in range(1, arr.shape[dim]):
+        indices[dim] = i
+        arr_data = arr[indices].as_list()
+        for j in range(len(result)):
+            result[j] = func(result[j], arr_data[j])
+    new_shape = list(arr.shape)
+    new_shape[dim] = 1
+
+    result_arr = ndarray_from_list(result, *new_shape)
+
+    # # TODO: squeeze
+    return result_arr
+
+```
+
 ## Contoh 1: sum
+```{python}
+x = ndarray_from_list([1, 2, 3, 4], 2, 2)
+
+print("Input:")
+print_ndarray(x)
+print("\nSum by axis 0:")
+print_ndarray(reduce_at_dim(x, 0, lambda x, y: x + y))
+print("\nSum by axis 1:")
+print_ndarray(reduce_at_dim(x, 1, lambda x, y: x + y))
+```
 
 ## Contoh 2: max
+```{python}
+x = ndarray_from_list(
+    [2, 1,
+     1, 4],
+     
+     2, 2
+)
+
+print("Input:")
+print_ndarray(x)
+print("\nMax by axis 0:")
+print_ndarray(reduce_at_dim(x, 0, max))
+print("\nMax by axis 1:")
+print_ndarray(reduce_at_dim(x, 1, max))
+```
 
 # Aplikasi _reduce_ untuk statistika
 

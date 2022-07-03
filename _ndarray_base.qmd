@@ -4,6 +4,7 @@
 import math
 import numpy as np
 import pprint
+from collections.abc import Iterable
 
 
 class NDArray:
@@ -36,7 +37,7 @@ class NDArray:
 
     def __getitem__(self, indices):  
         # Memastikan agar indices berupa iterable
-        indices = (indices,) if not isinstance(indices, tuple) else indices
+        indices = (indices,) if not isinstance(indices, Iterable) else indices
         new_indices = []
         for i, index in enumerate(indices):
             if isinstance(index, int):

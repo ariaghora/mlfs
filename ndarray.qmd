@@ -476,6 +476,9 @@ def offset_to_index(arr, offset):
 Agar bisa menggunakan operator indeks `[ ]` pada ndarray `x` (misal, `x[...]`), kita perlu melakukan _override_ dunder _method_ `__getitem__()`.
 
 ```{python}
+...
+from collections.abc import Iterable  # import baru
+
 class NDArray:
     def __init__(self):
         self.data = None
@@ -506,7 +509,7 @@ class NDArray:
 
     def __getitem__(self, indices):  # method baru
         # Memastikan agar indices berupa iterable
-        indices = (indices,) if not isinstance(indices, tuple) else indices
+        indices = (indices,) if not isinstance(indices, Iterable) else indices
         new_indices = []
         for i, index in enumerate(indices):
             if isinstance(index, int):
