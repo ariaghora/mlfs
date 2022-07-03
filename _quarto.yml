@@ -7,8 +7,6 @@ bibliography: references.bib
 format:
   html:
     title: "ML From Scratch: Implementasi di balik layar"
-    author: "Aria Ghora Prabono"
-    date: "6/30/2022"
     cover-image: cover.png
     toc: true
     html-math-method: katex
@@ -23,7 +21,10 @@ format:
 website:
   sidebar:
     style: docked
+    search: false
     contents:
+      - text: Muka
+        file: index.qmd
       - text: Pendahuluan
         file: pendahuluan.qmd
       - text: Struktur data n-dimensional array
