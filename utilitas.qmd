@@ -1,0 +1,102 @@
+{{< include _ndarray_base.qmd >}}
+
+# Fungsi _reduce_
+_Reduce_ berfungsi untuk mereduksi dimensi suatu ndarray sebanyak 1 dengan cara menerapkan fungsi universal pada suatu dimensi yang direduksi tersebut[^1].
+Perhatikan potongan kode di bawah ini:
+
+```{python}
+n = np.multiply.reduce([2,3,5])
+print(n)
+```
+Kode di atas mereduksi dimensi array dari 1 (vektor) menjadi dimensi 0 (skalar) dengan cara mengalikan semua elemen array tersebut.
+Tidak hanya perkalian, kita bisa menggunakan fungsi _binary_ lain, seperti penjumlahan, pengurangan, dll.
+
+Kita dapat mengimplementasikan fungsi _reduce_ versi kita sendiri.
+
+## Contoh 1: sum
+
+## Contoh 2: max
+
+# Aplikasi _reduce_ untuk statistika
+
+## Rata-rata
+
+## Variansi dan standar deviasi
+
+# Aljabar linear
+
+Bagian ini membahas konsep-konsep aljabar linear yang, menurut penulis, cukup sering digunakan di berbagai aktivitas _machine learning_.
+
+## Transposisi
+
+```{python}
+def transpose(arr):
+    arr.strides = arr.strides[::-1]
+    arr.shape = arr.shape[::-1]
+    arr.rebuild_index()
+    return arr
+
+```
+## Perkalian matriks
+
+Perkalian matriks banyak digunakan di berbagai disiplin ilmu yang melibatkan komputasi, termasuk di ranah _machine learning_.
+
+```{python}
+...
+
+def matmul(arr1, arr2):
+    if len(arr1.shape) != 2 and len(arr2.shape) != 2:
+        raise Exception("Fungsi ini hanya bisa digunakan untuk ndarray berdimensi 2")
+
+    if arr1.shape[1] != arr2.shape[0]:
+        raise Exception(
+            f"Tidak bisa mengalikan ndarray berbentuk {arr1.shape} dan {arr2.shape}"
+        )
+
+    result_data = []
+    for row in range(arr1.shape[0]):
+        for col in range(arr2.shape[1]):
+            vec1 = arr1[row]
+            vec2 = transpose(arr2[:, col])
+            dot = sum(multiply(vec1, vec2).as_list())
+            result_data.append(dot)
+    return ndarray_from_list(result_data, arr1.shape[0], arr2.shape[1])
+
+```
+
+```{python}
+x = ndarray_from_list([1, 2, 3, 4, 5, 6], 3, 2)
+y = ndarray_from_list([1, 1, 1, 1, 1, 1], 2, 3)
+res = matmul(x, y)
+print_ndarray(res)
+```
+
+:::{.callout-note}
+## Catatan
+Perkalian matriks adalah permasalahan yang sudah cukup lama dipelajari.
+Ada satu \textit{library} umum yang digunakan banyak \textit{library} ndarray dalam melakukan perkalian matriks, yaitu \textit{basic linear algebra subroutine} (BLAS).
+Tidak bisa dipungkiri perkalian matriks di buku ini naif dan lambat (selain karena python sendiri bahasa terinterpretasi dan lambat).
+:::
+
+# Pemuatan data
+
+<!-- \section{Singular value decomposition (SVD)}
+TODO
+
+\subsection{Metode \textit{power}}
+TODO
+
+\subsection{Implementasi metode \textit{power}}
+TODO
+
+\section{Principal component analysis (PCA)}
+TODO
+
+\section{Inverse matriks}
+TODO
+
+\subsection{Moore-Penrose pseudo-inverse}
+TODO
+
+\subsection{Implementasi Moore-Penrose pseudo-inverse} -->
+[^1]: https://numpy.org/doc/stable/reference/generated/numpy.ufunc.reduce.html
