@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.629">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>ndarray</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="struktur-data-n-dimensional-array" class="level1">
+<h1>Struktur data <em><span class="math inline">\(n\)</span>-dimensional array</em></h1>
+<p>Struktur data <em><span class="math inline">\(n\)</span>-dimensional array</em> (selanjutnya disebut “ndarray”), atau yang oleh beberapa framework deep learning disebut <em>tensor</em>, adalah tulang punggung teknologi machine learning. Struktur data ini seringkali <em>taken for granted</em>: kita bisa memakainya, namun tidak terlalu tahu mekanisme internalnya.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Catatan
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Penulis sengaja menghindari penggunaan istilah “tensor”, karena di disiplin ilmu matematika murni tensor memiliki arti yang berbeda. Walau tensor bisa direpresentasikan dengan ndarray, ia memiliki karakteristik lain, lebih dari sekadar ndarray, atau “matriks dengan dimensi lebih dari dua”.</p>
+</div>
+</div>
+<p>Numpy <span class="citation" data-cites="harris2020array">(<a href="#ref-harris2020array" role="doc-biblioref">Harris et al. 2020</a>)</span> sendiri mendefinisikan ndarray sebagai array yang merepresentasikan elemen-elemen dalam multidimensi, di mana jumlah elemen pada masing-masing dimensi berjumlah seragam. Ini mirip seperti nested array, yaitu array dalam array (dalam array (dalam array (…))). Beberapa perkakas machine learning dan deep learning menyebutnya sebagai tensor. Semuanya sama-sama mengacu pada bentuk umum dari skalar, vektor, dan matriks. Jika skalar memiliki 0 dimensi, vektor memiliki 1 dimensi dan matriks memiliki 2 dimensi, maka ndarray bisa saja memiliki sembarang dimensi, <span class="math inline">\(N\)</span>, dengan <span class="math inline">\(N\geq 0\)</span>. Bisa 3 dimensi, 4 dimensi, dst.</p>
+<p>Di <em>library</em> ndarray modern (NumPy ndarray <span class="citation" data-cites="harris2020array">(<a href="#ref-harris2020array" role="doc-biblioref">Harris et al. 2020</a>)</span>, tensorflow tensor <span class="citation" data-cites="tensorflow2015-whitepaper">(<a href="#ref-tensorflow2015-whitepaper" role="doc-biblioref">Abadi et al. 2015</a>)</span>, atau PyTorch tensor <span class="citation" data-cites="NEURIPS2019_9015">(<a href="#ref-NEURIPS2019_9015" role="doc-biblioref">Paszke et al. 2019</a>)</span>), jumlah dimensi, urutan dimensi, elemen data, dan aspek lain suatu ndarray harus dapat dimanipulasi saat <em>run-time</em>. Ini berbeda dengan nested array yang dimensinya sudah harus ditetapkan saat deklarasi/inisialisasi dan tidak bisa diubah lagi saat <em>run-time</em>. Misalnya, pada c/c++ kita bisa membuat array 2 dimensi:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span><span class="op">[</span><span class="dv">3</span><span class="op">][</span><span class="dv">3</span><span class="op">]</span> x<span class="op">;</span>    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Namun, hingga akhir program, <code>x</code> tetap 2 dimensi. Tidak berubah, dan tidak bisa diubah.</p>
+<p>Ndarray array adalah komponen penting dalam perkembangan teknologi <em>machine learning</em> hingga <em>deep learning</em>. Biasanya ia digunakan untuk merepresentasikan data. Misal, data tabel dapat direpresentasikan dengan ndarray 2 dimensi berbentuk <span class="math inline">\(N_{baris} \times N_{kolom}\)</span>. Data citra dapat direpresentasikan dengan ndarray 4 dimensi berbentuk <span class="math inline">\(N_{sampel} \times N_{panjang} \times N_{lebar} \times N_{channel}\)</span>.</p>
+<p>Walau bertajuk <em><span class="math inline">\(n\)</span>-dimensional array</em>, data numerik pada ndarray sebetulnya tidak tersusun berupa array dalam array (dalam array (dalam array (…))). Melainkan, data disimpan dalam format array 1 dimensi di memori. Ambil contoh NumPy ndarray berbentuk dengan 3 kolom dan 3 baris seperti ini:</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>], [<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>]]) </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1 2 3]
+ [4 5 6]
+ [7 8 9]]</code></pre>
+</div>
+</div>
+<p>Namun, sebenarnya yang tersimpan di memori akan berupa array flat, kurang lebih (jika dibayangkan) akan seperti pada Gambar <a href="#fig-linear-layout">1</a>.</p>
+<div id="fig-linear-layout" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/ndarray/linear-layout.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Gambar 1: Layout <em>linear</em></figcaption><p></p>
+</figure>
+</div>
+<p>Pada praktiknya, saat kita mengakses elemen dengan indeks baris <span class="math inline">\(i\)</span> dan kolom <span class="math inline">\(j\)</span>, indeks <span class="math inline">\((i,j)\)</span> tersebut akan dikonversi menjadi <em>offset</em> yang menentukan lokasi elemen pada array 1 dimensi di memori. Ini diilustrasikan pada Gambar <a href="#fig-index-vs-offset">2</a>. Implementasi ndarray paling tidak memiliki dua komponen utama, yang memberinya karakteristik: shape dan strides.</p>
+<p>Saat jumlah dimensi lebih dari 3, akan sangat sulit untuk mengandalkan visualisasi.</p>
+<div id="fig-index-vs-offset" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/ndarray/index_vs_offset.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Gambar 2: Kita (<em>user</em>) mengakses elemen berdasarkan indeks baris dan kolom, namun indeks tersebut akan dikonversi menjadi <em>offset</em></figcaption><p></p>
+</figure>
+</div>
+<section id="shape" class="level2">
+<h2 class="anchored" data-anchor-id="shape">Shape</h2>
+<p>Shape, seperti namanya, ia menentukan bentuk suatu ndarray. Shape dapat direpresentasikan sebagai tuple. Contoh: shape dari ndarray 2 dimensi (matriks) berbentuk <span class="math inline">\(2 \times 2\)</span> direpresentasikan dengan <span class="math inline">\((2,2)\)</span>. Secara formal, ndarray berdimensi <span class="math inline">\(N\)</span> memiliki shape berupa <span class="math inline">\(\mathbf{d}=(d_0, d_1, ..., d_{N-1})\)</span>.</p>
+</section>
+<section id="strides" class="level2">
+<h2 class="anchored" data-anchor-id="strides">Strides</h2>
+<p>Jumlah langkah yang dibutuhkan untuk menuju dimensi selanjutnya. Array pada ilustrasi di atas memiliki strides <span class="math inline">\((3, 1)\)</span>. Artinya, untuk menuju ke elemen selanjutnya di dimensi ke-2 (kolom), cukup lompat 1 saja. Namun, di dimensi pertama (baris), kita harus melompati 3 elemen untuk menuju kolom yang sama namun di baris selanjutnya.</p>
+<p>Jumlah elemen pada strides selalu sama dengan jumlah elemen pada shape. Strides direpresentasikan sebagai tuple juga: <span class="math inline">\(\mathbf{s}=(s_0, s_1, ..., s_{N-1})\)</span>. Kita bisa menghitung masing-masing elemen di strides, <span class="math inline">\(s_i\)</span>, berdasarkan shape dengan persamaan <a href="#eq-strides">1</a>.</p>
+<p><span id="eq-strides"><span class="math display">\[
+    s_i = \prod_{j+i+1}^{N-1} d_j
+\tag{1}\]</span></span></p>
+</section>
+<section id="mengakses-elemen-ndarray" class="level2">
+<h2 class="anchored" data-anchor-id="mengakses-elemen-ndarray">Mengakses elemen ndarray</h2>
+<p>Posisi (secara fisik) dari elemen pada data ndarray di memori kita sebut offset. Elemen pertama dari data tersebut bisa diakses pada offset 0. Bagaimana jika kita ingin memperoleh offset berdasarkan index? Misal, kita mempunyai ndarray berbentuk <span class="math inline">\((3, 3)\)</span>. Maka strides-nya adalah <span class="math inline">\((3, 1)\)</span> Jika kita ingin menghitung offset dengan index <span class="math inline">\((n_0, n_1)\)</span>, di mana <span class="math inline">\(n_0\)</span> adalah index baris dan <span class="math inline">\(n_1\)</span> adalah index kolom, maka kalkulasinya adalah</p>
+<p><span id="eq-offset-2d"><span class="math display">\[
+offset = n_0 \times s_0 + n_1 \times s_1.
+\tag{2}\]</span></span></p>
+<p>Sama halnya dengan mengakses ndarray 3 dimensi dengan index <span class="math inline">\((n_0, n_1, n_2)\)</span>, dengan <span class="math inline">\(n_2\)</span> sebagai dimensi kedalaman. Pertama, peroleh strides-nya, kemudian hitung offset-nya dengan cara</p>
+<p><span id="eq-offset-3d"><span class="math display">\[
+offset = n_0 \times s_0 + n_1 \times s_1 + n_2 \times s_2.
+\tag{3}\]</span></span></p>
+<p>Istilah teknis dari index <span class="math inline">\((n_0, n_1, ..., n_{N-1})\)</span> pada ndarray berdimensi <span class="math inline">\(N\)</span> adalah multidimensional index. Secara umum, berdasarkan suatu multidimensional index <span class="math inline">\((n_0, n_1, ..., n_{N-1})\)</span>, offset dapat kita hitung dengan persamaan <a href="#eq-offset-general">4</a>.</p>
+<p><span id="eq-offset-general"><span class="math display">\[
+    offset = \sum_{i=0}^{N-1} s_i n_i
+\tag{4}\]</span></span></p>
+</section>
+<section id="implementasi" class="level2">
+<h2 class="anchored" data-anchor-id="implementasi">Implementasi</h2>
+<p>Dengan beberapa konsep di atas, kita siap untuk memulai implementasinya. Kita akan menyiapkan satu kelas utama yang akan menjadi representasi tipe data ndarray. Implementasi ini akan banyak meminjam desain dari NumPy.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Catatan
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Implementasi pada buku ini bukanlah yang paling efektif, pun yang paling optimal. Kita hanya akan fokus pada konsep dasar. Implementasi ndarray yang sebenarnya (seperti NumPy dan Pytorch) dibuat dengan bahasa yang terkompilasi seperti C/C++. Selain itu, sudah banyak optimasi yang dilakukan secara intensif oleh ratusan kontributor yang memang pakar di bidang komputasi performa tinggi (<em>high-performance computing</em>).</p>
+</div>
+</div>
+<p>Kita mulai dengan sebuah kelas <code>NDArray</code>, yaitu kelas utama untuk struktur data ndarray, dengan 3 properties utama: <code>data</code>, <code>shape</code>, dan <code>strides</code>. Selain itu, sertakan juga fungsi untuk membuat ndarray dari python list, <code>ndrray_from_list()</code>. Di fungsi <code>ndarray_from_list()</code>, argumen untuk parameter <code>lst</code> akan menjadi data bagi ndarray baru. Property <code>shape</code> akan mengikuti argument untuk parameter <code>shape</code>, dan kita cast menjadi list (untuk konsistensi).</p>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> NDArray:</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.data <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.shape <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.strides <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ndarray_from_list(lst, <span class="op">*</span>shape):</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(lst) <span class="op">!=</span> math.prod(shape):</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">Exception</span>(</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f"List dengan panjang </span><span class="sc">{</span><span class="bu">len</span>(lst)<span class="sc">}</span><span class="ss"> tidak bisa dijadikan ndarray berbentuk </span><span class="sc">{</span>shape<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> NDArray()</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    x.data <span class="op">=</span> lst</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    x.shape <span class="op">=</span> <span class="bu">list</span>(shape)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    x.strides <span class="op">=</span> shape_to_strides(shape)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Saat inisialisasi ndarray, <code>strides</code> akan dihitung secara otomatis berdasarkan <code>shape</code>. Di bawah ini adalah implementasi dari fungsi <code>shape_to_stride()</code>.</p>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> shape_to_strides(shape):</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    strides <span class="op">=</span> []</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(shape)):</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        prod <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(i <span class="op">+</span> <span class="dv">1</span>, <span class="bu">len</span>(shape)):</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>            prod <span class="op">*=</span> shape[j]</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        strides.append(prod)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> strides</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Fungsi ini berdasarkan persamaan <a href="#eq-strides">1</a>. Di tahap ini kita bisa mencoba menggunakan ndarray. Misalnya:</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> ndarray_from_list([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>], <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x.data)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x.shape)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x.strides)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1, 2, 3, 4]
+[2, 2]
+[2, 1]</code></pre>
+</div>
+</div>
+<p>Kode di atas menghasilkan objek ndarray dengan <code>data</code> berisi <code>[1, 2, 3, 4]</code> dan <code>shape</code> dengan nilai <code>(2, 2)</code> (ekuivalen dengan matriks <span class="math inline">\(2 \times 2\)</span>).</p>
+<p>Bagian <code>actual_data</code> adalah data dalam urutan sebenarnya pada memori. Bagian <code>intended_data</code> adalah data dalam <strong>urutan dengan versi yang dilihat oleh kita (<em>user</em>)</strong>. Di contoh ini, keduanya masih sama, karena belum ada manipulasi apapun terhadap ndarray ini.</p>
+<p>Selanjutnya, kita akan mengimplementasikan akses ke elemen pada ndarray dengan indeks tertentu (misal, berdasarkan baris <span class="math inline">\(i\)</span>, kolom <span class="math inline">\(j\)</span>). Tambah method <code>get_item()</code> pada kelas <code>NDArray</code>.</p>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> NDArray:</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.data <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.shape <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.strides <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_item(<span class="va">self</span>, <span class="op">*</span>index):</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>        actual_offset <span class="op">=</span> <span class="bu">sum</span>(i <span class="op">*</span> s <span class="cf">for</span> i, s <span class="kw">in</span> <span class="bu">zip</span>(index, <span class="va">self</span>.strides))</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.data[actual_offset] </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Fungsi ini menerima input multidimensional index dari elemen yang akan kita akses, kemudian mengonversi index tersebut menjadi offset. Contoh:</p>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> ndarray_from_list([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>], <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># dengan multidimensional index, kita bisa mengakses elemen 3 </span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># sebagai berikut, karena 3 berada di baris 1, kolom 0</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>item <span class="op">=</span> x.get_item(<span class="dv">1</span>, <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Method <code>get_item</code> akan mengonversi <em>multidimensional index</em> <code>(1,0)</code> menjadi offset (yaitu 2), kemudian mengakses elemen ke-2 pada <code>x.data</code>. Perhatikan bahwa <code>actual_offset</code> diperoleh berdasarkan persamaan <a href="#eq-offset-general">4</a>. Kita juga bisa melakukan indexing pada ndarray dengan dimensi lebih tinggi, misalnya ndarray 3 dimensi, dengan cara yang sama:</p>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Buat ndarray berbentuk 2x2x2</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> ndarray_from_list([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>], <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># koordinat ini mengacu ke elemen angka 6</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>item <span class="op">=</span> x.get_item(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)  </span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Item pada koordinat (1,0,1):"</span>, item)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Item pada koordinat (1,0,1): 6</code></pre>
+</div>
+</div>
+<p>Seringkali kita akan membutuhkan akses data ndarray sebagai python list (flat/1-d list). Caranya adalah menampung semua elemen ndarray dari offset 0 hingga akhir. Pertama, implementasi method <code>get_size()</code> untuk membantu menghitung ukuran (atau panjang data seharusnya) dari data ndarray. Sederhana saja, ukuran ndarray merupakan hasil perkalian dari elemen pada <code>shape</code>. Sebagai contoh, ndarray 2 dimensi (matriks) berbentuk <span class="math inline">\((3, 2)\)</span> akan memiliki ukuran <span class="math inline">\(3 \times 2 = 6\)</span>. Kedua, implementasi fungsi <code>offset_to_index()</code> untuk mengonversi balik offset ke list berisi multidimensional index.</p>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> NDArray:</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.data <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.shape <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.strides <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_item(<span class="va">self</span>, <span class="op">*</span>index):</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>        actual_offset <span class="op">=</span> <span class="bu">sum</span>(i <span class="op">*</span> s <span class="cf">for</span> i, s <span class="kw">in</span> <span class="bu">zip</span>(index, <span class="va">self</span>.strides))</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.data[actual_offset] </span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_size(<span class="va">self</span>):</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> math.prod(<span class="va">self</span>.shape)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> as_list(<span class="va">self</span>):</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>        result <span class="op">=</span> []</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="va">self</span>.get_size()):</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>            index <span class="op">=</span> offset_to_index(<span class="va">self</span>, i)</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>            value <span class="op">=</span> <span class="va">self</span>.get_item(<span class="op">*</span>index)</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>            result.append(value)</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> result</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> offset_to_index(arr, offset):</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>    index <span class="op">=</span> [<span class="va">None</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(arr.shape))]</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>    tmp_offset <span class="op">=</span> offset</span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">reversed</span>(<span class="bu">range</span>(<span class="bu">len</span>(arr.shape))):</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>        index[i] <span class="op">=</span> <span class="bu">int</span>(tmp_offset <span class="op">%</span> arr.shape[i])</span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>        tmp_offset <span class="op">/=</span> arr.shape[i]</span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> index</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Pertanyaan yang mungkin muncul namun akan terjawab nanti: “mengapa untuk mencari ukuran ndarray tidak menggunakan <code>len(self.data)</code> saja?”</p>
+<p>Sampai saat ini, kita masih belum akan mencetak ndarray sekarang, karena untuk dapat mencetak dengan benar (data berikut juga bentuknya), kita membutuhkan kalkulasi lebih lanjut. Namun, sementara ini kita akan menggunakan cara “curang” agar bisa mencetak ndarray dengan bentuk yang sesuai dengan memanfaatkan NumPy. Nanti kita akan ganti dengan implementasi kita sendiri.</p>
+<p>Implementasikan 2 fungsi berikut ini. Yang pertama untuk mencetak dengan format tertentu (pretty print), yang kedua untuk mencetak atribut ndarray untuk mempermudah proses debugging.</p>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pprint</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> print_ndarray(arr):</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Walau menggunakan numpy, data dan shape tetap berdasarkan </span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># implementasi kita sendiri</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> np.array([<span class="bu">float</span>(i) <span class="cf">for</span> i <span class="kw">in</span> arr.as_list()]).reshape(<span class="op">*</span>arr.shape)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(x.<span class="fu">__repr__</span>())</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> debug_print(arr):</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    info <span class="op">=</span> <span class="bu">dict</span>(</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>        actual_data<span class="op">=</span>arr.data,</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>        intended_data<span class="op">=</span>arr.as_list(),</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>        shape<span class="op">=</span>arr.shape,</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>        strides<span class="op">=</span>arr.strides,</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    pprint.pprint(info)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Kita dapat menggunakannya sebagai berikut.</p>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> ndarray_from_list([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>], <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Array:"</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>print_ndarray(x)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Debug info:"</span>)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>debug_print(x)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Array:
+array([[1., 2.],
+       [3., 4.]])
+
+Debug info:
+{'actual_data': [1, 2, 3, 4],
+ 'intended_data': [1, 2, 3, 4],
+ 'shape': [2, 2],
+ 'strides': [2, 1]}</code></pre>
+</div>
+</div>
+</section>
+<section id="contoh-kegunaan-manipulasi-stride" class="level2">
+<h2 class="anchored" data-anchor-id="contoh-kegunaan-manipulasi-stride">Contoh kegunaan manipulasi stride</h2>
+<p>Sampai di titik ini, kita akan mulai bisa melihat “keajaiban” trik manipulasi strides dan shape. Ini juga alasan mengapa NumPy bisa sangat efisien.</p>
+<section id="transposisi" class="level3">
+<h3 class="anchored" data-anchor-id="transposisi">Transposisi</h3>
+<p>Saat melakukan transposisi pada suatu ndarray <code>x</code>, berarti kita melakukan pertukaran antara elemen baris dan kolom dari <code>x</code>. Ini bisa saja kita lakukan dengan melakukan iterasi atas baris dan kolom, kemudian menukar <code>x[i][j]</code> dengan <code>x[j][i]</code>.</p>
+<p>Namun, sebetulnya kita tidak perlu melakukan iterasi yang mahal itu. Triknya adalah, kita cukup membalik <code>x.shape</code> dan <code>x.strides</code>. Misal, ndarray berbentuk <span class="math inline">\((3, 2)\)</span> dapat ditransposisi menjadi berbentuk <span class="math inline">\((2, 3)\)</span> dengan elemen baris dan kolom yang ditukar, seperti ini:</p>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">### ndarray mula-mula</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> ndarray_from_list([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>], <span class="dv">3</span>, <span class="dv">2</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Sebelum transposisi:"</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Array:"</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>print_ndarray(x)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Debug info:"</span>)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>debug_print(x)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co">### Dua baris di bawah ini adalah trik transposisi kita</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>x.shape <span class="op">=</span> <span class="bu">list</span>(<span class="bu">reversed</span>(x.shape))</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>x.strides <span class="op">=</span> <span class="bu">list</span>(<span class="bu">reversed</span>(x.strides))</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Setelah transposisi:"</span>)</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Array:"</span>)</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>print_ndarray(x)</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Debug info:"</span>)</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>debug_print(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sebelum transposisi:
+Array:
+array([[1., 2.],
+       [3., 4.],
+       [5., 6.]])
+
+Debug info:
+{'actual_data': [1, 2, 3, 4, 5, 6],
+ 'intended_data': [1, 2, 3, 4, 5, 6],
+ 'shape': [3, 2],
+ 'strides': [2, 1]}
+
+Setelah transposisi:
+Array:
+array([[1., 3., 5.],
+       [2., 4., 6.]])
+
+Debug info:
+{'actual_data': [1, 2, 3, 4, 5, 6],
+ 'intended_data': [1, 3, 5, 2, 4, 6],
+ 'shape': [2, 3],
+ 'strides': [1, 2]}</code></pre>
+</div>
+</div>
+<p>Setelah transposisi, <code>actual_data</code> berbeda dengan <code>intended_data</code> karena <code>strides</code> dan <code>shape</code>, yang menentukan urutan iterasi per-elemen, telah berubah (dimanipulasi). Ternyata kita sama sekali tidak perlu mengubah urutan data sebenarnya di memori saat melakukan transposisi. Yang perlu dilakukan adalah memanipulasi <strong>cara kita (<em>user</em>)</strong> dalam melihat urutan; dan cara yang bisa dilakukan untuk memanipulasi user dalam melihat urutan adalah dengan memanipulasi <code>shape</code> dan <code>strides</code>. Jadi, jika ada ndarray berbentuk <code>(1000000, 1000000)</code>, kita tidak perlu melakukan iterasi sebanyak ratusan ribu kali untuk dalam melakukan transposisi. Cukup mainkan saja <code>shape</code> dan <code>stride</code>-nya.</p>
+</section>
+<section id="broadcasting" class="level3">
+<h3 class="anchored" data-anchor-id="broadcasting">Broadcasting</h3>
+<p>Banyak pustaka ndarray modern mengadopsi mekanisme broadcasting. Perhatikan contoh pada Gambar <a href="#fig-broadcasting-1">3</a>.</p>
+<div id="fig-broadcasting-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/ndarray/broadcasting1.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Gambar 3: Ilustrasi <em>broadcasting</em></figcaption><p></p>
+</figure>
+</div>
+<p>Saat melakukan operasi aritmatika antara kedua ndarray dengan bentuk berbeda, ndarray yang lebih kecil seolah-olah diduplikat hingga kedua ndarray memiliki jumlah baris yang sama. Mekanisme ini disebut broadasting: salah satu atau kedua ndarray dengan ukuran berbeda di-broadcast satu sama lain, sehingga keduanya memiliki bentuk yang kompatibel (selama memenuhi syarat tertentu). Dengan trik stride, kita tidak perlu membuat duplikat yang tidak perlu di memori:</p>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>B <span class="op">=</span> ndarray_from_list([<span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>], <span class="dv">3</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Mula-mula:"</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>print_ndarray(B)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>debug_print(B)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Dua baris berikut ini adalah proses broadcasting</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ndarray ukuran (3,) menjadi (3, 3)</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>B.shape <span class="op">=</span> [<span class="dv">3</span>] <span class="op">+</span> B.shape  <span class="co"># Prepend menambah dimensi berukuran 3 di depan</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>B.strides <span class="op">=</span> [<span class="dv">0</span>] <span class="op">+</span> B.strides  <span class="co"># Pepend stride untuk dimensi yang baru dengan 0</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Setelah broadcasting:"</span>)</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>print_ndarray(B)</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>debug_print(B)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Mula-mula:
+array([5., 5., 5.])
+{'actual_data': [5, 5, 5],
+ 'intended_data': [5, 5, 5],
+ 'shape': [3],
+ 'strides': [1]}
+
+Setelah broadcasting:
+array([[5., 5., 5.],
+       [5., 5., 5.],
+       [5., 5., 5.]])
+{'actual_data': [5, 5, 5],
+ 'intended_data': [5, 5, 5, 5, 5, 5, 5, 5, 5],
+ 'shape': [3, 3],
+ 'strides': [0, 1]}</code></pre>
+</div>
+</div>
+<p>Lagi-lagi, yang berubah hanya <code>shape</code> dan <code>strides</code>, dan data di memori tidak berubah sama sekali. Dengan <code>shape</code> dan <code>strides</code> yang demikian, persepsi <em>user</em> akan dihadapkan dengan data ndarray yang (secara linear) tersusun seperti pada <code>intended_data</code>.</p>
+<p>Ini juga menjawab pertanyaan mengapa kita tidak menggunakan <code>len(self.data)</code> di method <code>get_size()</code> untuk memperoleh ukuran ndarray. Untuk contoh di atas, ekspresi <code>len(self.data)</code> akan menghasilkan nilai 3, sementara yang kita harapkan adalah 9 (karena broadcasting). Maka, <code>prod(self.shape)</code> lebih tepat, karena ukuran ndarray selalu bergantung pada bentuknya.</p>
+</section>
+</section>
+<section id="melakukan-indexing-pada-ndarray" class="level2">
+<h2 class="anchored" data-anchor-id="melakukan-indexing-pada-ndarray">Melakukan <em>indexing</em> pada ndarray</h2>
+<p><em>Indexing</em> adalah operasi yang bertujuan untuk mengambil atau menyeleksi elemen-elemen dari array. Elemen-elemen ini diakses dengan suatu <em>index</em>, yaitu sesuatu yang menunjukkan lokasi elemen di suatu ndarray. Kita akan mengimplementasikan tiga jenis <em>indexing</em>: <em>indexing</em> sederhana, <em>indexing</em> dengan <em>integer array</em>, dan <em>indexing</em> dengan <em>slicing</em>.</p>
+<section id="indexing-sederhana" class="level3">
+<h3 class="anchored" data-anchor-id="indexing-sederhana"><em>Indexing</em> sederhana</h3>
+<p>Ndarray yang kita buat akan bisa diindeks dengan sintaks standar python, <code>x[i]</code>, di mana <code>x</code> adalah ndarray dan <code>i</code> adalah indikator penyeleksinya. Ekspresi <code>x[0]</code> berarti kita mengambil elemen pertama pada ndarray. Jika ndarray berdimensi 1 (vektor), maka ambil elemen skalar pertama. Jika ndarray berdimensi 2 (matriks), maka ambil elemen pertama di dimensi pertama (baris pertama). Begitu juga, jika ndarray berdimensi 3 (tensor), maka ambil elemen pertama di dimensi pertama (matriks pertama). Ini diilustrasikan di Gambar <a href="#fig-simple-indexing">4</a>.</p>
+<div id="fig-simple-indexing" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/ndarray/simple-indexing.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Gambar 4: Ilustrasi <em>indexing</em> sederhana (mengakses elemen dengan index 0) saat <code>x</code> berdimensi 1, 2, dan 3</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="indexing-dengan-integer-array" class="level3">
+<h3 class="anchored" data-anchor-id="indexing-dengan-integer-array"><em>Indexing</em> dengan <em>integer array</em></h3>
+<p>Indexing dengan <em>integer array</em> memungkinkan kita untu menyeleksi sembarang elemen pada suatu ndarray berdasarkan indeks pada dimensi-dimensinya. Tiap <em>integer array</em> mewakili beberapa indeks terhadap dimensinya. Sebagai contoh, kita memiliki ndarray <code>x</code> dengan <code>shape</code> <code>(3, 3)</code>. Kita bisa menyeleksi elemen di masin-masing dimensi dengan cara, misalnya, <code>x[[0, 1, 2], [0, 2]]</code>. Ini artinya, pada dimensi pertama (baris), elemen di indeks <span class="math inline">\(0, 1\)</span>, dan <span class="math inline">\(2\)</span> dipilih. Kemudian, pada dimensi kedua (kolom), hanya yang berindeks <span class="math inline">\(0\)</span> dan <span class="math inline">\(2\)</span> yang diseleksi. Proses seleksi ini dan hasilnya ditunjukkan pada Gambar <a href="#fig-integer-array-indexing">5</a>.</p>
+<div id="fig-integer-array-indexing" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/ndarray/integer_array_indexing.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Gambar 5: Ilustrasi <em>indexing</em> dengan <em>integer array</em></figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="indexing-dengan-slicing" class="level3">
+<h3 class="anchored" data-anchor-id="indexing-dengan-slicing"><em>Indexing</em> dengan <em>slicing</em></h3>
+<p>Selayaknya elemen dari python list yang bisa di-<em>slice</em>, <code>x[:5]</code> ndarray yang kita implementasikan juga dapat melakukan <em>indexing</em> dengan <em>slicing</em>. Konsep <em>slicing</em> ini mirip dengan indexing dengan integer array. Bedanya, dengan integer array kita secara eksplisit menentukan integer array yang akan menjadi selektor. Sedangkan denga slicing, kita mengakses elemen via objek <em>slice</em>. Namun pada akhirnya objek slice ini akan dianggap seolah-olah dia ini integer array.</p>
+</section>
+</section>
+<section id="pembaharuan-kelas-ndarray" class="level2">
+<h2 class="anchored" data-anchor-id="pembaharuan-kelas-ndarray">Pembaharuan kelas <code>NDArray</code></h2>
+<p>Tambah properti <code>indices</code> dan implementasikan <em>method</em> <code>rebuild_index()</code>. Perbarui juga fungsi <code>ndarray_from_list</code> dengan menambahkan <code>x.rebuild_index()</code>.</p>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> NDArray:</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.data <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.shape <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.strides <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.indices <span class="op">=</span> <span class="va">None</span>  <span class="co"># properti baru</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_item(<span class="va">self</span>, <span class="op">*</span>index):</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>        actual_offset <span class="op">=</span> <span class="bu">sum</span>(i <span class="op">*</span> s <span class="cf">for</span> i, s <span class="kw">in</span> <span class="bu">zip</span>(index, <span class="va">self</span>.strides))</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.data[actual_offset] </span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_size(<span class="va">self</span>):</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> math.prod(<span class="va">self</span>.shape)</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> as_list(<span class="va">self</span>):</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>        result <span class="op">=</span> []</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="va">self</span>.get_size()):</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>            index <span class="op">=</span> offset_to_index(<span class="va">self</span>, i)</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>            value <span class="op">=</span> <span class="va">self</span>.get_item(<span class="op">*</span>index)</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>            result.append(value)</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> result</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> rebuild_index(<span class="va">self</span>):  <span class="co"># method baru</span></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>        indices <span class="op">=</span> []</span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> s <span class="kw">in</span> <span class="va">self</span>.shape:</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>            indices.append(<span class="bu">list</span>(<span class="bu">range</span>(s)))</span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.indices <span class="op">=</span> indices</span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ndarray_from_list(lst, <span class="op">*</span>shape):</span>
+<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(lst) <span class="op">!=</span> math.prod(shape):</span>
+<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">Exception</span>(</span>
+<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f"List dengan panjang </span><span class="sc">{</span><span class="bu">len</span>(lst)<span class="sc">}</span><span class="ss"> tidak bisa dijadikan ndarray berukuran </span><span class="sc">{</span>shape<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> NDArray()</span>
+<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a>    x.data <span class="op">=</span> lst</span>
+<span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a>    x.shape <span class="op">=</span> <span class="bu">list</span>(shape)</span>
+<span id="cb20-41"><a href="#cb20-41" aria-hidden="true" tabindex="-1"></a>    x.strides <span class="op">=</span> shape_to_strides(shape)</span>
+<span id="cb20-42"><a href="#cb20-42" aria-hidden="true" tabindex="-1"></a>    x.rebuild_index()  <span class="co"># tambahkan baris ini</span></span>
+<span id="cb20-43"><a href="#cb20-43" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><em>Method</em> <code>rebuild_index()</code> bertujuan untuk menginisialisasi indeks pada masing-masing dimensi dengan list berisi <span class="math inline">\(0, 1, ..., d_i\)</span>, di mana <span class="math inline">\(d_i\)</span> adalah panjang dimensi ke-<span class="math inline">\(i\)</span>. Indeks-indeks ini akan berguna seperti <em>strides</em>, yang memungkinkan kita melakukan trik penyeleksian elemen-elemen pada ndarray.</p>
+<p>Sekarang kita sudah memiliki informasi indeks pada masing-masing dimensi, sehingga fungsi <code>offset_to_index</code> perlu diperbarui.</p>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> offset_to_index(arr, offset):</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    index <span class="op">=</span> [<span class="va">None</span> <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(arr.shape))]</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    tmp_offset <span class="op">=</span> offset</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">reversed</span>(<span class="bu">range</span>(<span class="bu">len</span>(arr.shape))):</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>        index[i] <span class="op">=</span> arr.indices[i][<span class="bu">int</span>(tmp_offset <span class="op">%</span> arr.shape[i])]</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>        tmp_offset <span class="op">/=</span> arr.shape[i]</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> index</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="implementasi-indexing" class="level2">
+<h2 class="anchored" data-anchor-id="implementasi-indexing">Implementasi indexing</h2>
+<p>Agar bisa menggunakan operator indeks <code>[ ]</code> pada ndarray <code>x</code> (misal, <code>x[...]</code>), kita perlu melakukan <em>override</em> dunder <em>method</em> <code>__getitem__()</code>.</p>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> NDArray:</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.data <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.shape <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.strides <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.indices <span class="op">=</span> <span class="va">None</span>  </span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_item(<span class="va">self</span>, <span class="op">*</span>index):</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>        actual_offset <span class="op">=</span> <span class="bu">sum</span>(i <span class="op">*</span> s <span class="cf">for</span> i, s <span class="kw">in</span> <span class="bu">zip</span>(index, <span class="va">self</span>.strides))</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.data[actual_offset] </span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_size(<span class="va">self</span>):</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> math.prod(<span class="va">self</span>.shape)</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> as_list(<span class="va">self</span>):</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>        result <span class="op">=</span> []</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="va">self</span>.get_size()):</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>            index <span class="op">=</span> offset_to_index(<span class="va">self</span>, i)</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>            value <span class="op">=</span> <span class="va">self</span>.get_item(<span class="op">*</span>index)</span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>            result.append(value)</span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> result</span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> rebuild_index(<span class="va">self</span>):  </span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>        indices <span class="op">=</span> []</span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> s <span class="kw">in</span> <span class="va">self</span>.shape:</span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>            indices.append(<span class="bu">list</span>(<span class="bu">range</span>(s)))</span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.indices <span class="op">=</span> indices</span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__getitem__</span>(<span class="va">self</span>, indices):  <span class="co"># method baru</span></span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Memastikan agar indices berupa iterable</span></span>
+<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>        indices <span class="op">=</span> (indices,) <span class="cf">if</span> <span class="kw">not</span> <span class="bu">isinstance</span>(indices, <span class="bu">tuple</span>) <span class="cf">else</span> indices</span>
+<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a>        new_indices <span class="op">=</span> []</span>
+<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i, index <span class="kw">in</span> <span class="bu">enumerate</span>(indices):</span>
+<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="bu">isinstance</span>(index, <span class="bu">int</span>):</span>
+<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a>                new_indices.append([index])</span>
+<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a>            <span class="cf">elif</span> <span class="bu">isinstance</span>(index, <span class="bu">slice</span>):</span>
+<span id="cb22-37"><a href="#cb22-37" aria-hidden="true" tabindex="-1"></a>                start <span class="op">=</span> <span class="dv">0</span> <span class="cf">if</span> index.start <span class="kw">is</span> <span class="va">None</span> <span class="cf">else</span> index.start</span>
+<span id="cb22-38"><a href="#cb22-38" aria-hidden="true" tabindex="-1"></a>                step <span class="op">=</span> <span class="dv">1</span> <span class="cf">if</span> index.step <span class="kw">is</span> <span class="va">None</span> <span class="cf">else</span> index.step</span>
+<span id="cb22-39"><a href="#cb22-39" aria-hidden="true" tabindex="-1"></a>                stop <span class="op">=</span> <span class="va">self</span>.shape[i] <span class="cf">if</span> index.stop <span class="kw">is</span> <span class="va">None</span> <span class="cf">else</span> index.stop</span>
+<span id="cb22-40"><a href="#cb22-40" aria-hidden="true" tabindex="-1"></a>                index <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(start, stop, step))</span>
+<span id="cb22-41"><a href="#cb22-41" aria-hidden="true" tabindex="-1"></a>                new_indices.append(index)</span>
+<span id="cb22-42"><a href="#cb22-42" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb22-43"><a href="#cb22-43" aria-hidden="true" tabindex="-1"></a>                <span class="cf">try</span>:</span>
+<span id="cb22-44"><a href="#cb22-44" aria-hidden="true" tabindex="-1"></a>                    index <span class="op">=</span> [i <span class="cf">for</span> i <span class="kw">in</span> index]</span>
+<span id="cb22-45"><a href="#cb22-45" aria-hidden="true" tabindex="-1"></a>                    new_indices.append(index)</span>
+<span id="cb22-46"><a href="#cb22-46" aria-hidden="true" tabindex="-1"></a>                <span class="cf">except</span>:</span>
+<span id="cb22-47"><a href="#cb22-47" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">raise</span> <span class="pp">Exception</span>(<span class="ss">f"Indeks tidak valid: </span><span class="sc">{</span>index<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb22-48"><a href="#cb22-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-49"><a href="#cb22-49" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(<span class="va">self</span>.shape) <span class="op">&gt;</span> <span class="bu">len</span>(indices):</span>
+<span id="cb22-50"><a href="#cb22-50" aria-hidden="true" tabindex="-1"></a>            new_indices.append(<span class="op">*</span><span class="va">self</span>.indices[<span class="bu">len</span>(indices) :])</span>
+<span id="cb22-51"><a href="#cb22-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-52"><a href="#cb22-52" aria-hidden="true" tabindex="-1"></a>        new_shape <span class="op">=</span> [<span class="bu">len</span>(index) <span class="cf">for</span> index <span class="kw">in</span> new_indices]</span>
+<span id="cb22-53"><a href="#cb22-53" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> NDArray()</span>
+<span id="cb22-54"><a href="#cb22-54" aria-hidden="true" tabindex="-1"></a>        x.data <span class="op">=</span> <span class="va">self</span>.data</span>
+<span id="cb22-55"><a href="#cb22-55" aria-hidden="true" tabindex="-1"></a>        x.strides <span class="op">=</span> <span class="va">self</span>.strides</span>
+<span id="cb22-56"><a href="#cb22-56" aria-hidden="true" tabindex="-1"></a>        x.shape <span class="op">=</span> new_shape</span>
+<span id="cb22-57"><a href="#cb22-57" aria-hidden="true" tabindex="-1"></a>        x.indices <span class="op">=</span> new_indices</span>
+<span id="cb22-58"><a href="#cb22-58" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Di tahap ini kita sudah bisa melakukan indexing, seperti contoh-contoh berikut ini:</p>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Buat ndarray dengan bentuk (3, 3)</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> ndarray_from_list(</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>     <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>     <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>], </span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>     </span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>     <span class="dv">3</span>, <span class="dv">3</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>print_ndarray(x[<span class="dv">0</span>])</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>print_ndarray(x[:, <span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>array([[1., 2., 3.]])
+array([[2.],
+       [5.],
+       [8.]])</code></pre>
+</div>
+</div>
+</section>
+<section id="fungsi-universal" class="level2">
+<h2 class="anchored" data-anchor-id="fungsi-universal">Fungsi universal</h2>
+<p>Meminjam istilah dari NumPy, fungsi universal <em>(universal function)</em> mengacu pada fungsi matematis yang dapat digunakan pada ndarray. Fungsi universal bisa meliputi fungsi trigonometri, fungsi aritmatika, fungsi statistika, dan sebagainya. Di implementasi kita, fungsi universal memiliki karakteristik sebagai berikut:</p>
+<ul>
+<li>Dapat beroperasi pada ndarray</li>
+<li>Mendukung operasi per-elemen</li>
+<li>Menduking <em>broadcasting</em></li>
+<li>Terbatas fungsi <em>unary</em> dan <em>binary</em> saja</li>
+</ul>
+<section id="fungsi-unary" class="level3">
+<h3 class="anchored" data-anchor-id="fungsi-unary">Fungsi <em>unary</em></h3>
+<p>Fungsi unary adalah fungsi yang memiliki 1 parameter. Sebagai contoh, <span class="math inline">\(\sin(x)\)</span>, <span class="math inline">\(\log(x)\)</span>, <span class="math inline">\(\exp(x)\)</span> adalah contoh fungsi <em>unary</em>. Operasi aritmatik negatif <span class="math inline">\(-x\)</span> juga bisa diekspresikan sebagai fungsi <em>unary</em>, misalnya <span class="math inline">\(neg(x)\)</span>. Di implementasi kita, fungsi unary diaplikasikan pada masing-masing elemen pada ndarray. Implementasi dari bentuk umum fungsi <em>unary</em> dapat dilakukan sebagai berikut.</p>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ufunc(arr, func):</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    new_data <span class="op">=</span> []</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> val <span class="kw">in</span> arr.data:</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>        new_data.append(func(val))</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> NDArray()</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    x.data <span class="op">=</span> new_data</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>    x.shape <span class="op">=</span> arr.shape</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    x.strides <span class="op">=</span> arr.strides</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>    x.indices <span class="op">=</span> arr.indices</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Pada dasarnya, fungsi ini menerima argumen berupa ndarray dan fungsi <em>unary</em> apa yang akan diaplikasikan. Fungsi <code>ufunc()</code> akan melakukan iterasi satu-persatu pada elemen ndarray kemudian memanggil <code>func(x)</code> dan menyimpan hasilnya di <code>new_data</code>. Variabel <code>new_data</code> ini yang kemudian menjadi data baru bagi ndarray kembalian fungsi <code>ufunc()</code>. Kita dapat menurunkan fungsi <em>unary</em> yang lebih spesifik lagi.</p>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> exp(arr):</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># kita bisa menggunakan mem-pass lambda function</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ufunc(arr, <span class="kw">lambda</span> x: math.exp(x))</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sin(arr):</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># kita juga bisa langsung mem-pass fungsi dari module math</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ufunc(arr, math.sin)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Berikut ini adalah contoh penggunaan dari kedua fungsi di atas:</p>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> ndarray_from_list([math.radians(x) <span class="cf">for</span> x <span class="kw">in</span> [<span class="dv">0</span>, <span class="dv">30</span>, <span class="dv">90</span>]], <span class="dv">3</span>, <span class="dv">1</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>print_ndarray(sin(x))</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>print_ndarray(exp(x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>array([[0. ],
+       [0.5],
+       [1. ]])
+
+array([[1.        ],
+       [1.68809179],
+       [4.81047738]])</code></pre>
+</div>
+</div>
+</section>
+<section id="fungsi-binary" class="level3">
+<h3 class="anchored" data-anchor-id="fungsi-binary">Fungsi <em>binary</em></h3>
+<p>Jika fungsi <em>unary</em> memiliki satu parameter, fungsi <em>binary</em> memiliki dua parameter. Banyak operasi aritmatika yang dapat direpresentasikan oleh fungsi <em>binary</em>, seperti penjumlahan, perkalian, pengurangan, dan sebagainya. Fungsi <em>binary</em> sebagai fungsi penjumlahan dua ndarray akan bekerja selayaknya penjumlahan masing-masing elemen pada kedua ndarray tersebut. Karena itulah, bentuk dari kedua ndarray harus kompatibel. Jika salah satu atau kedua ndarray yang akan kita masukkan dalam fungsi <em>binary</em> memiliki bentuk berbeda, maka kita perlu melakukan <em>broadcasting</em>.</p>
+</section>
+<section id="broadcasting-1" class="level3">
+<h3 class="anchored" data-anchor-id="broadcasting-1"><em>Broadcasting</em></h3>
+<p>Di bagian awal kita sudah menyinggung sedikit tentang broadcasting, proses penyesuaian bentuk dua ndarray sehingga keduanya memiliki bentuk yang kompatibel. <em>Broadcasting</em> diperlukan saat kita akan melakukan fungsi <em>binary</em>, karena kita perlu menerapkan fungsi per-elemen, dan masing-masing elemen di ndarray pertama berkorespondensi satu-satu dengan elemen di ndarray kedua (dengan koordinat yang sama).</p>
+<p><em>Broadacsting</em> bisa berarti menyesuaikan bentuk ndarray yang lebih “kecil” agar kompatibel dengan yang lebih besar (Gambar <a href="#fig-broadcasting-1">3</a>). Namun, <em>broadcasting</em> juga bisa berarti kedua ndarray saling menyesuaikan satu sama lain hingga kompatibel. Ini seperti ditunjukkan pada Gambar <a href="#fig-broadcasting-2">6</a>.</p>
+<div id="fig-broadcasting-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/ndarray/broadcasting2.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Gambar 6: Ilustrasi <em>broadcasting</em> di mana kedua ndarray di-<em>broadcast</em> satu sama lain</figcaption><p></p>
+</figure>
+</div>
+<p><em>Broadcasting</em> memiliki aturan khusus. Kita akan mengadopsi aturan dari NumPy. Misal, <span class="math inline">\(d^A_i\)</span> adalah elemen <code>shape</code> ndarray <span class="math inline">\(A\)</span> pada dimensi ke-<span class="math inline">\(i\)</span>, dan <span class="math inline">\(d^B_i\)</span> adalah elemen <code>shape</code> ndarray <span class="math inline">\(B\)</span> pada dimensi ke-<span class="math inline">\(i\)</span>. Misalkan juga, <span class="math inline">\(N_A\)</span> dan <span class="math inline">\(N_B\)</span> adalah jumlah dimensi dari ndarray <span class="math inline">\(A\)</span> dan <span class="math inline">\(B\)</span>. Maka:</p>
+<ul>
+<li><strong>Aturan 1:</strong> Jika dua ndarray memiliki jumlah dimensi berbeda (<span class="math inline">\(N_A \neq N_B\)</span>), maka <code>shape</code> dari ndarray yang lebih sedikit dimensinya dibubuhkan dengan angka 1 (dari kiri), hingga <span class="math inline">\(N_A = N_B\)</span>.</li>
+<li><strong>Aturan 2:</strong> Jika <span class="math inline">\(d^A_i \neq d^B_i\)</span> pada dimensi ke-<span class="math inline">\(i\)</span>, maka:
+<ul>
+<li>jika <span class="math inline">\(d^A_i = 1\)</span>, maka ubah sedemikian hingga <span class="math inline">\(d^A_i=d^B_i\)</span>.</li>
+<li>Begitu juga, jika <span class="math inline">\(d^B_i = 1\)</span>, maka ubah sedemikian hingga <span class="math inline">\(d^B_i=d^A_i\)</span>.</li>
+</ul></li>
+<li><strong>Aturan 3:</strong> Jika elemen <code>shape</code> kedua ndarray tidak sama untuk semua dimensi; atau jika tidak sama dengan 1, maka <em>broadcasting</em> tidak dapat dilakukan. Munculkan pesan error.</li>
+</ul>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> broadcast(arr1, arr2):</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Kedua ndarray berukuran sama, tidak ada yang perlu dilakukan, dan</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># langsung kembali</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> arr1.shape <span class="op">==</span> arr2.shape:</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> arr1, arr2</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Jumlah dimensi baru yang akan menjadi target</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    new_ndims <span class="op">=</span> <span class="bu">max</span>(<span class="bu">len</span>(arr1.shape), <span class="bu">len</span>(arr2.shape))</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Aturan 1</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>    new_shape_1 <span class="op">=</span> [<span class="dv">1</span> <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(new_ndims <span class="op">-</span> <span class="bu">len</span>(arr1.shape))] <span class="op">+</span> arr1.shape</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>    new_shape_2 <span class="op">=</span> [<span class="dv">1</span> <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(new_ndims <span class="op">-</span> <span class="bu">len</span>(arr2.shape))] <span class="op">+</span> arr2.shape</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Karena melibatkan strides, maka harus kita sesuaikan juga. Strides pada dimensi</span></span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># yang di-expand, perlu di-set menjadi 0</span></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>    new_strides_1 <span class="op">=</span> [<span class="dv">0</span> <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(new_ndims <span class="op">-</span> <span class="bu">len</span>(arr1.strides))] <span class="op">+</span> arr1.strides</span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>    new_strides_2 <span class="op">=</span> [<span class="dv">0</span> <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(new_ndims <span class="op">-</span> <span class="bu">len</span>(arr2.strides))] <span class="op">+</span> arr2.strides</span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(new_ndims):</span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Aturan 2</span></span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> new_shape_1[i] <span class="op">!=</span> new_shape_2[i]:</span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> new_shape_1[i] <span class="op">&lt;</span> new_shape_2[i] <span class="kw">and</span> new_shape_1[i] <span class="op">&lt;=</span> <span class="dv">1</span>:</span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a>                new_strides_1[i] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a>                new_shape_1[i] <span class="op">=</span> new_shape_2[i]</span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a>            <span class="cf">elif</span> new_shape_2[i] <span class="op">&lt;</span> new_shape_1[i] <span class="kw">and</span> new_shape_2[i] <span class="op">&lt;=</span> <span class="dv">1</span>:</span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a>                new_strides_2[i] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a>                new_shape_2[i] <span class="op">=</span> new_shape_1[i]</span>
+<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a>                <span class="co"># Aturan 3</span></span>
+<span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a>                <span class="cf">raise</span> <span class="pp">Exception</span>(</span>
+<span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"Tidak bisa melakukan broadcasting pada array dengan bentuk </span><span class="sc">{arr1.shape}</span><span class="st"> dan </span><span class="sc">{arr2.shape}</span><span class="st">"</span></span>
+<span id="cb29-33"><a href="#cb29-33" aria-hidden="true" tabindex="-1"></a>                )</span>
+<span id="cb29-34"><a href="#cb29-34" aria-hidden="true" tabindex="-1"></a>    new_arr1 <span class="op">=</span> NDArray()</span>
+<span id="cb29-35"><a href="#cb29-35" aria-hidden="true" tabindex="-1"></a>    new_arr1.data <span class="op">=</span> arr1.data</span>
+<span id="cb29-36"><a href="#cb29-36" aria-hidden="true" tabindex="-1"></a>    new_arr1.shape <span class="op">=</span> new_shape_1</span>
+<span id="cb29-37"><a href="#cb29-37" aria-hidden="true" tabindex="-1"></a>    new_arr1.strides <span class="op">=</span> new_strides_1</span>
+<span id="cb29-38"><a href="#cb29-38" aria-hidden="true" tabindex="-1"></a>    new_arr1.rebuild_index()</span>
+<span id="cb29-39"><a href="#cb29-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-40"><a href="#cb29-40" aria-hidden="true" tabindex="-1"></a>    new_arr2 <span class="op">=</span> NDArray()</span>
+<span id="cb29-41"><a href="#cb29-41" aria-hidden="true" tabindex="-1"></a>    new_arr2.data <span class="op">=</span> arr2.data</span>
+<span id="cb29-42"><a href="#cb29-42" aria-hidden="true" tabindex="-1"></a>    new_arr2.shape <span class="op">=</span> new_shape_2</span>
+<span id="cb29-43"><a href="#cb29-43" aria-hidden="true" tabindex="-1"></a>    new_arr2.strides <span class="op">=</span> new_strides_2</span>
+<span id="cb29-44"><a href="#cb29-44" aria-hidden="true" tabindex="-1"></a>    new_arr2.rebuild_index()</span>
+<span id="cb29-45"><a href="#cb29-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-46"><a href="#cb29-46" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> new_arr1, new_arr2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="broadcasting-untuk-fungsi-binary" class="level2">
+<h2 class="anchored" data-anchor-id="broadcasting-untuk-fungsi-binary"><em>Broadcasting</em> untuk fungsi <em>binary</em></h2>
+<p>Dengan diimplementasikannya fungsi <em>broadcasting</em>, implementasi fungsi <em>binary</em> akan menjadi mudah. Katakanlah, kita ingin mengimplementasikan fungsi <code>add</code>, <code>subtract</code>, <code>multiply</code>, dan <code>divide</code>. Yang perlu dilakukan mirip seperti apa yang kita lakukan dengan fungsi <em>unary</em>:</p>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> bfunc(arr1, arr2, func):</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Pertama, pastikan shape arr1 dan arr2 kompatibel</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    arr1, arr2 <span class="op">=</span> broadcast(arr1, arr2)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    data1 <span class="op">=</span> arr1.as_list()</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>    data2 <span class="op">=</span> arr2.as_list()</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>    new_data <span class="op">=</span> []</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> x, y <span class="kw">in</span> <span class="bu">zip</span>(data1, data2):</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>        new_data.append(func(x, y))</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ndarray_from_list(new_data, <span class="op">*</span>arr1.shape)</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add(arr1, arr2):</span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> bfunc(arr1, arr2, <span class="kw">lambda</span> x, y: x <span class="op">+</span> y)</span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> subtract(arr1, arr2):</span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> bfunc(arr1, arr2, <span class="kw">lambda</span> x, y: x <span class="op">-</span> y)</span>
+<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> multiply(arr1, arr2):</span>
+<span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> bfunc(arr1, arr2, <span class="kw">lambda</span> x, y: x <span class="op">*</span> y)</span>
+<span id="cb30-27"><a href="#cb30-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-28"><a href="#cb30-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-29"><a href="#cb30-29" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> divide(arr1, arr2):</span>
+<span id="cb30-30"><a href="#cb30-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> bfunc(arr1, arr2, <span class="kw">lambda</span> x, y: x <span class="op">/</span> y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="operator-overloading" class="level2">
+<h2 class="anchored" data-anchor-id="operator-overloading">Operator overloading</h2>
+<p>Kita bisa melakukan <em>operator overloading</em> sehingga kita bisa melakukan penjumlahan ndarray <code>x</code> dan <code>y</code> dengan cara menuliskan <code>x + y</code>, tanpa harus memanggil fungsi <code>add(x, y)</code>. <em>Operator overloading</em> dapat dilakukan dengan cara melakukan <em>override</em> pada <em>dunder method</em> yang relevan. Misal, untuk penjumlahan:</p>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> NDArray:</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.data <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.shape <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.strides <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.indices <span class="op">=</span> <span class="va">None</span>  </span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_item(<span class="va">self</span>, <span class="op">*</span>index):</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>        actual_offset <span class="op">=</span> <span class="bu">sum</span>(i <span class="op">*</span> s <span class="cf">for</span> i, s <span class="kw">in</span> <span class="bu">zip</span>(index, <span class="va">self</span>.strides))</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.data[actual_offset] </span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_size(<span class="va">self</span>):</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> math.prod(<span class="va">self</span>.shape)</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> as_list(<span class="va">self</span>):</span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>        result <span class="op">=</span> []</span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="va">self</span>.get_size()):</span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>            index <span class="op">=</span> offset_to_index(<span class="va">self</span>, i)</span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>            value <span class="op">=</span> <span class="va">self</span>.get_item(<span class="op">*</span>index)</span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>            result.append(value)</span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> result</span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> rebuild_index(<span class="va">self</span>):  </span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a>        indices <span class="op">=</span> []</span>
+<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> s <span class="kw">in</span> <span class="va">self</span>.shape:</span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a>            indices.append(<span class="bu">list</span>(<span class="bu">range</span>(s)))</span>
+<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.indices <span class="op">=</span> indices</span>
+<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__getitem__</span>(<span class="va">self</span>, indices):  </span>
+<span id="cb31-30"><a href="#cb31-30" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Memastikan agar indices berupa iterable</span></span>
+<span id="cb31-31"><a href="#cb31-31" aria-hidden="true" tabindex="-1"></a>        indices <span class="op">=</span> (indices,) <span class="cf">if</span> <span class="kw">not</span> <span class="bu">isinstance</span>(indices, <span class="bu">tuple</span>) <span class="cf">else</span> indices</span>
+<span id="cb31-32"><a href="#cb31-32" aria-hidden="true" tabindex="-1"></a>        new_indices <span class="op">=</span> []</span>
+<span id="cb31-33"><a href="#cb31-33" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i, index <span class="kw">in</span> <span class="bu">enumerate</span>(indices):</span>
+<span id="cb31-34"><a href="#cb31-34" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="bu">isinstance</span>(index, <span class="bu">int</span>):</span>
+<span id="cb31-35"><a href="#cb31-35" aria-hidden="true" tabindex="-1"></a>                new_indices.append([index])</span>
+<span id="cb31-36"><a href="#cb31-36" aria-hidden="true" tabindex="-1"></a>            <span class="cf">elif</span> <span class="bu">isinstance</span>(index, <span class="bu">slice</span>):</span>
+<span id="cb31-37"><a href="#cb31-37" aria-hidden="true" tabindex="-1"></a>                start <span class="op">=</span> <span class="dv">0</span> <span class="cf">if</span> index.start <span class="kw">is</span> <span class="va">None</span> <span class="cf">else</span> index.start</span>
+<span id="cb31-38"><a href="#cb31-38" aria-hidden="true" tabindex="-1"></a>                step <span class="op">=</span> <span class="dv">1</span> <span class="cf">if</span> index.step <span class="kw">is</span> <span class="va">None</span> <span class="cf">else</span> index.step</span>
+<span id="cb31-39"><a href="#cb31-39" aria-hidden="true" tabindex="-1"></a>                stop <span class="op">=</span> <span class="va">self</span>.shape[i] <span class="cf">if</span> index.stop <span class="kw">is</span> <span class="va">None</span> <span class="cf">else</span> index.stop</span>
+<span id="cb31-40"><a href="#cb31-40" aria-hidden="true" tabindex="-1"></a>                index <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(start, stop, step))</span>
+<span id="cb31-41"><a href="#cb31-41" aria-hidden="true" tabindex="-1"></a>                new_indices.append(index)</span>
+<span id="cb31-42"><a href="#cb31-42" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb31-43"><a href="#cb31-43" aria-hidden="true" tabindex="-1"></a>                <span class="cf">try</span>:</span>
+<span id="cb31-44"><a href="#cb31-44" aria-hidden="true" tabindex="-1"></a>                    index <span class="op">=</span> [i <span class="cf">for</span> i <span class="kw">in</span> index]</span>
+<span id="cb31-45"><a href="#cb31-45" aria-hidden="true" tabindex="-1"></a>                    new_indices.append(index)</span>
+<span id="cb31-46"><a href="#cb31-46" aria-hidden="true" tabindex="-1"></a>                <span class="cf">except</span>:</span>
+<span id="cb31-47"><a href="#cb31-47" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">raise</span> <span class="pp">Exception</span>(<span class="ss">f"Indeks tidak valid: </span><span class="sc">{</span>index<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb31-48"><a href="#cb31-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-49"><a href="#cb31-49" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(<span class="va">self</span>.shape) <span class="op">&gt;</span> <span class="bu">len</span>(indices):</span>
+<span id="cb31-50"><a href="#cb31-50" aria-hidden="true" tabindex="-1"></a>            new_indices.append(<span class="op">*</span><span class="va">self</span>.indices[<span class="bu">len</span>(indices) :])</span>
+<span id="cb31-51"><a href="#cb31-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-52"><a href="#cb31-52" aria-hidden="true" tabindex="-1"></a>        new_shape <span class="op">=</span> [<span class="bu">len</span>(index) <span class="cf">for</span> index <span class="kw">in</span> new_indices]</span>
+<span id="cb31-53"><a href="#cb31-53" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> NDArray()</span>
+<span id="cb31-54"><a href="#cb31-54" aria-hidden="true" tabindex="-1"></a>        x.data <span class="op">=</span> <span class="va">self</span>.data</span>
+<span id="cb31-55"><a href="#cb31-55" aria-hidden="true" tabindex="-1"></a>        x.strides <span class="op">=</span> <span class="va">self</span>.strides</span>
+<span id="cb31-56"><a href="#cb31-56" aria-hidden="true" tabindex="-1"></a>        x.shape <span class="op">=</span> new_shape</span>
+<span id="cb31-57"><a href="#cb31-57" aria-hidden="true" tabindex="-1"></a>        x.indices <span class="op">=</span> new_indices</span>
+<span id="cb31-58"><a href="#cb31-58" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> x</span>
+<span id="cb31-59"><a href="#cb31-59" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb31-60"><a href="#cb31-60" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__add__</span>(<span class="va">self</span>, other):</span>
+<span id="cb31-61"><a href="#cb31-61" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> add(<span class="va">self</span>, other)</span>
+<span id="cb31-62"><a href="#cb31-62" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb31-63"><a href="#cb31-63" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__sub__</span>(<span class="va">self</span>, other):</span>
+<span id="cb31-64"><a href="#cb31-64" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> subtract(<span class="va">self</span>, other)</span>
+<span id="cb31-65"><a href="#cb31-65" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb31-66"><a href="#cb31-66" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__mul__</span>(<span class="va">self</span>, other):</span>
+<span id="cb31-67"><a href="#cb31-67" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> multiply(<span class="va">self</span>, other)</span>
+<span id="cb31-68"><a href="#cb31-68" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb31-69"><a href="#cb31-69" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__truediv__</span>(<span class="va">self</span>, other):</span>
+<span id="cb31-70"><a href="#cb31-70" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> divide(<span class="va">self</span>, other)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Daftar lengkap operator yang dapat di-<em>overload</em> dapat dilihat di dokumentasi python<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>Menggunakannya cukup sebagai berikut:</p>
+<div class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> ndarray_from_list([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], <span class="dv">3</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> ndarray_from_list([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], <span class="dv">3</span>, <span class="dv">1</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>print_ndarray(x)</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>print_ndarray(y)</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> x <span class="op">+</span> y  <span class="co"># menimpa operator + dengan fungsi add</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>print_ndarray(z)</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> x <span class="op">-</span> y  <span class="co"># menimpa operator - dengan fungsi subtract</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>print_ndarray(z)</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> x <span class="op">*</span> y  <span class="co"># menimpa operator * dengan fungsi multiply</span></span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>print_ndarray(z)</span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> x <span class="op">/</span> y  <span class="co"># menimpa operator / dengan fungsi divide</span></span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>print_ndarray(z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>array([1., 2., 3.])
+array([[1.],
+       [2.],
+       [3.]])
+array([[2., 3., 4.],
+       [3., 4., 5.],
+       [4., 5., 6.]])
+array([[ 0.,  1.,  2.],
+       [-1.,  0.,  1.],
+       [-2., -1.,  0.]])
+array([[1., 2., 3.],
+       [2., 4., 6.],
+       [3., 6., 9.]])
+array([[1.        , 2.        , 3.        ],
+       [0.5       , 1.        , 1.5       ],
+       [0.33333333, 0.66666667, 1.        ]])</code></pre>
+</div>
+</div>
+<p>Dalam komputasi saintifik, notasi ini akan lebih singkat dan mudah dibaca daripada memanggil fungsi secara berantai.</p>
+<p>Pembaca dapat bereksplorasi sendiri untuk mengimplementasikan fungsi <em>binary</em> lainnya.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-tensorflow2015-whitepaper" class="csl-entry" role="doc-biblioentry">
+Abadi, Martı́n, Ashish Agarwal, Paul Barham, Eugene Brevdo, Zhifeng Chen, Craig Citro, Greg S. Corrado, et al. 2015. <span>“<span>TensorFlow</span>: Large-Scale Machine Learning on Heterogeneous Systems.”</span> <a href="https://www.tensorflow.org/">https://www.tensorflow.org/</a>.
+</div>
+<div id="ref-harris2020array" class="csl-entry" role="doc-biblioentry">
+Harris, Charles R., K. Jarrod Millman, Stéfan J. van der Walt, Ralf Gommers, Pauli Virtanen, David Cournapeau, Eric Wieser, et al. 2020. <span>“Array Programming with <span>NumPy</span>.”</span> <em>Nature</em> 585 (7825): 357–62. <a href="https://doi.org/10.1038/s41586-020-2649-2">https://doi.org/10.1038/s41586-020-2649-2</a>.
+</div>
+<div id="ref-NEURIPS2019_9015" class="csl-entry" role="doc-biblioentry">
+Paszke, Adam, Sam Gross, Francisco Massa, Adam Lerer, James Bradbury, Gregory Chanan, Trevor Killeen, et al. 2019. <span>“PyTorch: An Imperative Style, High-Performance Deep Learning Library.”</span> In <em>Advances in Neural Information Processing Systems 32</em>, edited by H. Wallach, H. Larochelle, A. Beygelzimer, F. dAlché-Buc, E. Fox, and R. Garnett, 8024–35. Curran Associates, Inc. <a href="http://papers.neurips.cc/paper/9015-pytorch-an-imperative-style-high-performance-deep-learning-library.pdf">http://papers.neurips.cc/paper/9015-pytorch-an-imperative-style-high-performance-deep-learning-library.pdf</a>.
+</div>
+</div>
+</section>
+</section>
+<section class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1" role="doc-endnote"><p>https://docs.python.org/3/reference/datamodel.html#emulating-numeric-types<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

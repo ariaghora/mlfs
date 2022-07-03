@@ -1,0 +1,29 @@
+project:
+  type: website
+  output-dir: docs
+
+book:
+  title: "ML From Scratch: Implementasi di balik layar"
+  author: "Aria Ghora Prabono"
+  date: "6/30/2022"
+  cover-image: cover.png
+  chapters:
+    - index.qmd
+    - pendahuluan.qmd
+    - ndarray.qmd
+    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+    crossref:
+      fig-title: Gambar
+      fig-prefix: ""
+      eq-prefix: ""
+  pdf:
+    documentclass: scrbook
+    fontfamily: libertinus
+    include-in-header:
+      - macros.tex

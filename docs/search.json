@@ -1,0 +1,30 @@
+[
+  {
+    "objectID": "ndarray.html",
+    "href": "ndarray.html",
+    "title": "",
+    "section": "",
+    "text": "https://docs.python.org/3/reference/datamodel.html#emulating-numeric-types↩︎"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "",
+    "section": "",
+    "text": "Kata pengantar"
+  },
+  {
+    "objectID": "summary.html",
+    "href": "summary.html",
+    "title": "",
+    "section": "",
+    "text": "In summary, this book has no content whatsoever. \\(\\vecx\\)"
+  },
+  {
+    "objectID": "pendahuluan.html",
+    "href": "pendahuluan.html",
+    "title": "",
+    "section": "",
+    "text": "Machine learning, atau dalam Bahasa Indonesianya pembelajaran mesin, adalah cabang dari disiplin ilmu kecerdasan buatan yang berfokus membangun sistem cerdas yang mampu belajar dari data.\n\n\n\nMaksud dari di balik layar ialah implementasi berbagai aspek machine learning yang terjadi di balik layar dari awal, dengan sedikit (hingga tanpa) library tambahan. Walau implementasi dilakukan mulai awal, secara bertahap pembaca akan diperkenalkan dengan library tambahan yang penting.\nMengapa harus from scratch sementara sudah ada banyak pustaka di luar sana (NumPy, scikit-learn, PyTorch, dan lainnya)? Mengutip Grus (2019):\n\nLangsung menggunakan pustaka adalah cara yang bagus untuk memulai melakukan data science tanpa memahami data science itu sendiri.\n\nPenulis meyakini bahwa hal itu juga berlaku pada machine learning. Cara terbaik untuk menggunakan pustaka machine learning secara efektif dan komprehensif adalah dengan mengalami proses pembuatannya sendiri.\n\n\n\nBagian yang memerlukan perhatian khusus akan dicetak dengan format kotak berwarna biru seperti di bawah ini.\n\n\n\n\n\n\nCatatan\n\n\n\nIsi pesan catatan di sini\n\n\nKadang kala ada tips dan trik yang mungkin membantu pembaca. Bagian ini akan dicetak dengan kotak berwarna hijau seperti berikut.\n\n\n\n\n\n\nTips\n\n\n\nIsi pesan tips di sini\n\n\nPotongan kode atau bagian kode dalam paragraf (inline) dicetak dengan font monospaced. Blok kode diformat dengan syntax highlighting seperti berikut ini.\nimport numpy as np\n\nprint(\"Hai\")\nfruits = [\"banana\", \"apple\", \"orange\"]\n\nfor fruit in fruits:\n    print(fruit)\nKadang potongan kode juga akan disertai output yang akan dicetak di bawahnya.\n\na = 10\nb = 20\nprint(\"Hasil penjumlahan:\", a + b)\n\nHasil penjumlahan: 30\n\n\n\n\n\nDemi konsistensi, penulis menetapkan konvensi penulisan notasi matematika. Variabel bernilai skalar dinotasikan dengan aksara Latin atau Yunani non-kapital cetak miring, seperti \\(x\\), \\(y\\), \\(\\alpha\\), atau \\(\\beta\\). Vektor dinotasikan dengan aksara Latin atau Yunani non-kapital cetak tebal \\(\\mathbf{x}\\), \\(\\mathbf{y}\\). Elemen skalar ke-\\(i\\) dari vektor \\(\\mathbf{x}\\) dinotasikan dengan \\(x_i\\). Matriks dinotasikan dengan aksara Latin atau Yunani kapital cetak tebal \\(\\mathbf{X}\\), \\(\\mathbf{Y}\\), \\(\\mathbf{\\Sigma}\\) Elemen baris ke-\\(i\\) kolom ke-\\(j\\) suatu matriks \\(\\mathbf{X}\\) dinotasikan dengan \\(x_{i,j}\\). Himpunan () dinotasikan dengan huruf yang dicetak kaligrafis, seperti \\(\\mathcal{X}\\), \\(\\mathcal{S}\\), atau \\(\\mathcal{L}\\). Himpunan bilangan riil dinotasikan dengan \\(\\mathbb{R}\\). Matriks \\(\\mathbf{X}\\) dari himpunan bilangan riil berukuran \\(m \\times n\\) kadang dinotasikan dengan \\(\\mathbf{X}\\in\\mathbb{R}^{m \\times n}\\).\n\n\n\n\nGrus, Joel. 2019. Data Science from Scratch: First Principles with Python. O’Reilly Media."
+  }
+]
