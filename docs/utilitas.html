@@ -4014,7 +4014,20 @@ border-left: 4px solid black;
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    result_arr <span class="op">=</span> ndarray_from_list(result, <span class="op">*</span>new_shape)</span>
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># # </span><span class="al">TODO</span><span class="co">: squeeze</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result_arr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result_arr</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="bu">reduce</span>(arr, dims, func, keep_dim<span class="op">=</span><span class="va">False</span>):</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">isinstance</span>(dims, <span class="bu">int</span>):</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>        dims <span class="op">=</span> [dims]</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> reduce_at_dim(arr, dims[<span class="dv">0</span>], func, <span class="va">True</span>)</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> dim <span class="kw">in</span> dims[<span class="dv">1</span>:]:</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>        result <span class="op">=</span> reduce_at_dim(result, dim, func, <span class="va">True</span>)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># </span><span class="al">TODO</span><span class="co">:</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># if not keep_dim:</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    <span class="co">#     result = squeeze(result)</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <section id="contoh-1-sum" class="level2">
 <h2 class="anchored" data-anchor-id="contoh-1-sum">Contoh 1: sum</h2>
 <div class="cell" data-execution_count="4">
@@ -4023,9 +4036,11 @@ border-left: 4px solid black;
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Input:&quot;</span>)</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>print_ndarray(x)</span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">Sum by axis 0:&quot;</span>)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>print_ndarray(reduce_at_dim(x, <span class="dv">0</span>, <span class="kw">lambda</span> x, y: x <span class="op">+</span> y))</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>print_ndarray(<span class="bu">reduce</span>(x, <span class="dv">0</span>, <span class="kw">lambda</span> x, y: x <span class="op">+</span> y))</span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">Sum by axis 1:&quot;</span>)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>print_ndarray(reduce_at_dim(x, <span class="dv">1</span>, <span class="kw">lambda</span> x, y: x <span class="op">+</span> y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>print_ndarray(<span class="bu">reduce</span>(x, <span class="dv">1</span>, <span class="kw">lambda</span> x, y: x <span class="op">+</span> y))</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">Sum by axis 0, then 1:&quot;</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>print_ndarray(<span class="bu">reduce</span>(x, [<span class="dv">0</span>, <span class="dv">1</span>], <span class="kw">lambda</span> x, y: x <span class="op">+</span> y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Input:
 array([[1., 2.],
@@ -4036,7 +4051,10 @@ array([[4., 6.]])
 
 Sum by axis 1:
 array([[3.],
-       [7.]])</code></pre>
+       [7.]])
+
+Sum by axis 0, then 1:
+array([[10.]])</code></pre>
 </div>
 </div>
 </section>
@@ -4053,9 +4071,9 @@ array([[3.],
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Input:&quot;</span>)</span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>print_ndarray(x)</span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">Max by axis 0:&quot;</span>)</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>print_ndarray(reduce_at_dim(x, <span class="dv">0</span>, <span class="bu">max</span>))</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>print_ndarray(<span class="bu">reduce</span>(x, <span class="dv">0</span>, <span class="bu">max</span>))</span>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">Max by axis 1:&quot;</span>)</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>print_ndarray(reduce_at_dim(x, <span class="dv">1</span>, <span class="bu">max</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>print_ndarray(<span class="bu">reduce</span>(x, <span class="dv">1</span>, <span class="bu">max</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Input:
 array([[2., 1.],

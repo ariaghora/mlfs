@@ -4001,8 +4001,13 @@ border-left: 4px solid black;
   <ul>
   <li><a href="#pendahuluan" id="toc-pendahuluan" class="nav-link active" data-scroll-target="#pendahuluan">Pendahuluan</a>
   <ul class="collapse">
-  <li><a href="#machine-learning" id="toc-machine-learning" class="nav-link" data-scroll-target="#machine-learning">Machine learning</a></li>
-  <li><a href="#di-balik-layar" id="toc-di-balik-layar" class="nav-link" data-scroll-target="#di-balik-layar">Di balik layar</a></li>
+  <li><a href="#machine-learning" id="toc-machine-learning" class="nav-link" data-scroll-target="#machine-learning">Machine learning</a>
+  <ul class="collapse">
+  <li><a href="#pengalaman-experience-e" id="toc-pengalaman-experience-e" class="nav-link" data-scroll-target="#pengalaman-experience-e">Pengalaman (<em>experience</em>) <span class="math inline">E</span></a></li>
+  <li><a href="#tugas-task-t-dalam-supervised-learning" id="toc-tugas-task-t-dalam-supervised-learning" class="nav-link" data-scroll-target="#tugas-task-t-dalam-supervised-learning">Tugas (<em>task</em>) <span class="math inline">T</span> dalam <em>supervised learning</em></a></li>
+  <li><a href="#performa-p" id="toc-performa-p" class="nav-link" data-scroll-target="#performa-p">Performa <span class="math inline">P</span></a></li>
+  </ul></li>
+  <li><a href="#implementasi-di-balik-layar" id="toc-implementasi-di-balik-layar" class="nav-link" data-scroll-target="#implementasi-di-balik-layar">Implementasi di balik layar</a></li>
   <li><a href="#konvensi" id="toc-konvensi" class="nav-link" data-scroll-target="#konvensi">Konvensi</a></li>
   <li><a href="#notasi-matematika" id="toc-notasi-matematika" class="nav-link" data-scroll-target="#notasi-matematika">Notasi matematika</a></li>
   </ul></li>
@@ -4033,15 +4038,40 @@ border-left: 4px solid black;
 <section id="machine-learning" class="level2">
 <h2 class="anchored" data-anchor-id="machine-learning">Machine learning</h2>
 <p><em>Machine learning</em>, atau dalam Bahasa Indonesianya <em>pembelajaran mesin</em>, adalah cabang dari disiplin ilmu kecerdasan buatan yang berfokus membangun sistem cerdas yang mampu belajar dari data.</p>
+<p><span class="citation" data-cites="mitchell1997machine">Mitchell (<a href="#ref-mitchell1997machine" role="doc-biblioref">1997</a>)</span> memberikan definisi singkat dari <em>learning</em> (atau “belajar”, dalam konteks algoritma pembelajaran), yaitu:</p>
+<blockquote class="blockquote">
+<p>“Suatu program komputer dikatakan ‘belajar’ dari pengalaman (<em>experience</em>) <span class="math inline">E</span> pada tugas (<em>task</em>) <span class="math inline">T</span> yang performanya terukur dengan ukuran <span class="math inline">P</span>.”</p>
+</blockquote>
+<section id="pengalaman-experience-e" class="level3">
+<h3 class="anchored" data-anchor-id="pengalaman-experience-e">Pengalaman (<em>experience</em>) <span class="math inline">E</span></h3>
+<p>Algoritma pembelajaran belajar dari pengalaman, dan pengalaman yang dimaksud adalah <strong>dataset</strong>. Secara umum dapat dibagi setidaknya dua kategori: <strong><em>supervised learning</em></strong> dan <strong><em>unsupervised learning</em></strong>.</p>
+<ul>
+<li><strong><em>Supervised learning</em></strong> adalah pembelajaran dengan dataset yang disertai label/target yang diketahui.</li>
+<li><strong><em>Unsupervised learning</em></strong> adalah pembelajaran dengan dataset yang tidak disertai label/target.</li>
+</ul>
+<p>Kita akan lebih banyak fokus pada <em>supervised learning</em>.</p>
 </section>
-<section id="di-balik-layar" class="level2">
-<h2 class="anchored" data-anchor-id="di-balik-layar">Di balik layar</h2>
+<section id="tugas-task-t-dalam-supervised-learning" class="level3">
+<h3 class="anchored" data-anchor-id="tugas-task-t-dalam-supervised-learning">Tugas (<em>task</em>) <span class="math inline">T</span> dalam <em>supervised learning</em></h3>
+<p>Ada beberapa jenis tugas yang dapat dilakukan dengan <em>machine learning</em> pada suatu program komputer. Antara lain:</p>
+<ul>
+<li>Regresi (<em>regression</em>): algoritma pembelajaran akan mempelajari suatu fungsi <span class="math inline">f:\mathbb{R}^n\rightarrow\mathbb{R}</span>. Dengan kata lain, pada tugas ini, suatu program komputer diminta untuk memprediksi nilai numerik berdasarkan suatu input.</li>
+<li>Klasifikasi (<em>classification</em>): algoritma pembelajaran akan mempelajari <span class="math inline">f:\mathbb{R}^n\rightarrow\{1, ..., k\}</span>. Pada tugas ini, suatu program komputer diminta untuk menentukan kelas dari suatu data.</li>
+</ul>
+</section>
+<section id="performa-p" class="level3">
+<h3 class="anchored" data-anchor-id="performa-p">Performa <span class="math inline">P</span></h3>
+<p>Performa adalah ukuran dari hasil yang diberikan oleh algoritma pembelajaran. Misalnya, untuk klasifikasi, salah satu performa yang dapat dijadikan acuan adalah akurasi dari suatu model. Akurasi diperoleh dari persentase prediksi yang benar dari data yang diberikan.</p>
+</section>
+</section>
+<section id="implementasi-di-balik-layar" class="level2">
+<h2 class="anchored" data-anchor-id="implementasi-di-balik-layar">Implementasi di balik layar</h2>
 <p>Maksud dari di balik layar ialah implementasi berbagai aspek <em>machine learning</em> yang terjadi di balik layar dari awal, dengan sedikit (hingga tanpa) <em>library</em> tambahan. Walau implementasi dilakukan mulai awal, secara bertahap pembaca akan diperkenalkan dengan <em>library</em> tambahan yang penting.</p>
 <p>Mengapa harus <em>from scratch</em> sementara sudah ada banyak pustaka di luar sana (NumPy, scikit-learn, PyTorch, dan lainnya)? Mengutip <span class="citation" data-cites="grus2019data">Grus (<a href="#ref-grus2019data" role="doc-biblioref">2019</a>)</span>:</p>
 <blockquote class="blockquote">
 <p>Langsung menggunakan pustaka adalah cara yang bagus untuk memulai melakukan <em>data science</em> tanpa memahami <em>data science</em> itu sendiri.</p>
 </blockquote>
-<p>Penulis meyakini bahwa hal itu juga berlaku pada <em>machine learning</em>. Cara terbaik untuk menggunakan pustaka <em>machine learning</em> secara efektif dan komprehensif adalah dengan mengalami proses pembuatannya sendiri.</p>
+<p>Penulis meyakini bahwa hal itu juga berlaku pada <em>machine learning</em>. Cara terbaik untuk menggunakan pustaka <em>machine learning</em> secara efektif dan komprehensif adalah dengan mengalami proses pembuatannya sendiri. Kita tidak menargetkan untuk membuat implementasi yang paling efektif, tetapi kita akan fokus pada pemahaman cara kerja pustaka <em>machine learning</em> di balik layar.</p>
 </section>
 <section id="konvensi" class="level2">
 <h2 class="anchored" data-anchor-id="konvensi">Konvensi</h2>
@@ -4103,6 +4133,9 @@ Tips
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
 <div id="ref-grus2019data" class="csl-entry" role="doc-biblioentry">
 Grus, Joel. 2019. <em>Data Science from Scratch: First Principles with Python</em>. O’Reilly Media.
+</div>
+<div id="ref-mitchell1997machine" class="csl-entry" role="doc-biblioentry">
+Mitchell, Tom M. 1997. <em>Machine Learning</em>. Vol. 1. 9. McGraw-hill New York.
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
