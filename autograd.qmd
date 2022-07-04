@@ -1,8 +1,25 @@
 # Penghitungan gradien otomatis (autograd)
 
+Ingat kembali bahwa dalam melatih _machine learning_ kita perlu menghitung turunan dari _loss function_ terhadap **semua parameter pada model**.
+Untuk _machine learning_ yang sederhana, kita masih bisa menghitung secara manual kemudian membuat programnya.
+Saat arsitektur _machine learning_ sudah mulai dalam, belasan hingga puluhan _layer_, dan terdapat banyak operasi yang rumit (hingga yang tak biasa), menghitung turunan secara manual akan sangat memakan waktu.
+Belum lagi, sebagai manusia, kita rentan melakukan kesalahan.
+Maka dari itu, biarkan komputer yang melakukan penghitungan diferensiasi untuk kita.
+
+:::{.callout-note}
+## Catatan
 Penulis berasumsi bahwa pembaca dapat memahami _mental model_ dasar dari suatu struktur data ndarray.
 Pembahasan ndarray dicukupkan, dan pada bagian ini kita sudah bisa beralih menggunakan NumPy agar dapat melakukan komputasi dengan lebih cepat.
+:::
 
 # Operasi pada ndarray sebagai komputasi graf
-
+Ekspresi `y = w * x + b` dapat diinterpretasikan dalam graf sebagai berikut (Gambar @fig-komputasi-graf-1):
+```{mermaid}
+%%| label: fig-komputasi-graf-1
+%%| fig-cap: Contoh komputasi graf dari ekspresi `y = w * x + b`
+flowchart LR
+    w(w) & x(x) --> *(*)
+    *(*) & b(b) --> +(+)
+    +(+) --> y
+```
 # Autograd dengan mode _backward_

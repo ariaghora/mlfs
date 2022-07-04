@@ -42,7 +42,7 @@ website:
       - text: Penghitungan gradien otomatis
         file: autograd.qmd
   page-footer:
-    left: "Copyright 2022, Aria Ghora Prabono"
+    left: "Copyright 2021, Aria Ghora Prabono"
     right:
       - icon: twitter
         href: https://twitter.com/aria_ghora
