@@ -30,10 +30,10 @@ E(f;\pmb{\beta}) = \sum_{i=0}^m (\mathbf{x}_i \pmb{\beta} - y_i)^2.
 $${#eq-mse-reg}
 
 Error tersebut dapat diminimalkan dengan mencari turunannya terhadap $\pmb{\beta}$,
-
 $$
-\frac{d}{d\pmb{\beta}} \cdot E(f;\pmb{\beta})
+\frac{d}{d\pmb{\beta}} \cdot E(f;\pmb{\beta}),
 $${#eq-mse-diff}
+yang kemudian diselesaikan dengan menyamakan hasil turunannya dengan $0$.
 
 ## _Ordinary least squares_ (OLS)
 
@@ -74,7 +74,7 @@ y_hat = X @ beta
 ```
 
 Masalah utama dari OLS adalah operasi inverse yang mahal.
-Perhatikan persamaan \ref{eq:beta_est}, di mana kita perlu menghitung $(\mathbf{X}^\top\mathbf{X})^\dagger$.
+Perhatikan persamaan \ref{eq:beta_est}, di mana kita perlu menghitung $(\mathbf{X}^\top\mathbf{X})^{-1}$.
 Andaikan ada 10000 sampel, maka pada akhirnya kita perlu menghitung invers dari suatu matriks berukuran $10000 \times 10000$.
 Selain itu, diketahui bahwa algoritma invers memiliki kompleksitas $O(n^3)$.
 Kita membutuhkan alat yang lebih tepat, terlebih jika sudah berurusan dengan _big data_.
