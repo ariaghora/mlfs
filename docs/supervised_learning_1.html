@@ -4034,8 +4034,9 @@ E(f;\pmb{\beta}) = \sum_{i=0}^m (\mathbf{x}_i \pmb{\beta} - y_i)^2.
 \tag{2}</span></span></p>
 <p>Error tersebut dapat diminimalkan dengan mencari turunannya terhadap <span class="math inline">\pmb{\beta}</span>,</p>
 <p><span id="eq-mse-diff"><span class="math display">
-\frac{d}{d\pmb{\beta}} \cdot E(f;\pmb{\beta})
+\frac{d}{d\pmb{\beta}} \cdot E(f;\pmb{\beta}),
 \tag{3}</span></span></p>
+<p>yang kemudian diselesaikan dengan menyamakan hasil turunannya dengan <span class="math inline">0</span>.</p>
 <section id="ordinary-least-squares-ols" class="level2">
 <h2 class="anchored" data-anchor-id="ordinary-least-squares-ols"><em>Ordinary least squares</em> (OLS)</h2>
 <p>Kita dapat merepresentasikan semua sampel dalam bentuk matriks <span class="math inline">\mathbf{X} \in \mathbb{R}^{m \times n}</span>, di mana baris ke-<span class="math inline">i</span> mewakili vektor <em>feature</em> <span class="math inline">\mathbf{x}_i</span>. Persamaan dapat ditulis ulang dengan lebih ringkas sebagai berikut.</p>
@@ -4065,7 +4066,7 @@ E(f;\pmb{\beta}) = \lVert \mathbf{X}\pmb{\beta} - \mathbf{y} \rVert^2
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>beta <span class="op">=</span> inv(X.T <span class="op">@</span> X) <span class="op">@</span> X.T <span class="op">@</span> y</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>y_hat <span class="op">=</span> X <span class="op">@</span> beta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Masalah utama dari OLS adalah operasi inverse yang mahal. Perhatikan persamaan , di mana kita perlu menghitung <span class="math inline">(\mathbf{X}^\top\mathbf{X})^\dagger</span>. Andaikan ada 10000 sampel, maka pada akhirnya kita perlu menghitung invers dari suatu matriks berukuran <span class="math inline">10000 \times 10000</span>. Selain itu, diketahui bahwa algoritma invers memiliki kompleksitas <span class="math inline">O(n^3)</span>. Kita membutuhkan alat yang lebih tepat, terlebih jika sudah berurusan dengan <em>big data</em>.</p>
+<p>Masalah utama dari OLS adalah operasi inverse yang mahal. Perhatikan persamaan , di mana kita perlu menghitung <span class="math inline">(\mathbf{X}^\top\mathbf{X})^{-1}</span>. Andaikan ada 10000 sampel, maka pada akhirnya kita perlu menghitung invers dari suatu matriks berukuran <span class="math inline">10000 \times 10000</span>. Selain itu, diketahui bahwa algoritma invers memiliki kompleksitas <span class="math inline">O(n^3)</span>. Kita membutuhkan alat yang lebih tepat, terlebih jika sudah berurusan dengan <em>big data</em>.</p>
 </section>
 </section>
 <section id="algoritma-gradient-descent" class="level1">

@@ -140,24 +140,43 @@ Tidak bisa dipungkiri perkalian matriks di buku ini naif dan lambat (selain kare
 :::
 
 # Pemuatan data
+Agar tetap ringkas, data yang akan kita gunakan berupa tabular dalam format CSV.
+Oleh karena itu, kita perlu membuat fungsi untuk memuat data dari file CSV.
+```{python}
 
-<!-- \section{Singular value decomposition (SVD)}
-TODO
+def load_csv(path, delimiter=","):
+    """ Asumsi:
+        - Data berupa numerik secara keseluruhan 
+        - Jumlah kolom berdasarkan baris pertama
+    
+    """
+    num_cols = None
+    num_rows = 0
+    data = []
+    with open(path, "r") as f:
+        for line in f:
+            line = line.strip()
+            if len(line) == 0:
+                continue
+            row=line.split(delimiter)
+            if num_cols is None:
+                num_cols = len(row)
+            data.extend(row)
+            num_rows += 1 
+    return ndarray_from_list(data, num_rows, num_cols)
 
-\subsection{Metode \textit{power}}
-TODO
 
-\subsection{Implementasi metode \textit{power}}
-TODO
+```
 
-\section{Principal component analysis (PCA)}
-TODO
+Contoh penggunaan:
+```{python}
+dataset = load_csv("datasets/breast_cancer.csv")
+X = dataset[:, 1:]
+y = dataset[:, 0]
 
-\section{Inverse matriks}
-TODO
+print("Fitur dan label pada 5 baris pertama:")
+print_ndarray(X[:5])
+print_ndarray(y[:5])
+```
 
-\subsection{Moore-Penrose pseudo-inverse}
-TODO
-
-\subsection{Implementasi Moore-Penrose pseudo-inverse} -->
 [^1]: https://numpy.org/doc/stable/reference/generated/numpy.ufunc.reduce.html
