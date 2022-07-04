@@ -116,7 +116,7 @@
     "href": "index.html",
     "title": "ML From Scratch: Implementasi di balik layar",
     "section": "",
-    "text": "Halaman muka"
+    "text": "Warning\n\n\n\nTulisan-tulisan pada situs ini diperbarui berkala"
   },
   {
     "objectID": "supervised_learning_1.html",
@@ -144,7 +144,7 @@
     "href": "autograd.html",
     "title": "ML From Scratch: Implementasi di balik layar",
     "section": "",
-    "text": "Operasi pada ndarray sebagai komputasi graf\n\n\nAutograd dengan mode backward"
+    "text": "Operasi pada ndarray sebagai komputasi graf\nEkspresi y = w * x + b dapat diinterpretasikan dalam graf sebagai berikut (Gambar 1):\n\n\n\n\n\nflowchart LR\n    w(w) & x(x) --> *(*)\n    *(*) & b(b) --> +(+)\n    +(+) --> y\n\n\n\n\n\nGambar 1: Contoh komputasi graf dari ekspresi y = w * x + b\n\n\n\n\n\n\nAutograd dengan mode backward"
   },
   {
     "objectID": "pendahuluan.html",
