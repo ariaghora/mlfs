@@ -1,3 +1,13 @@
+```{python}
+#| echo: false
+from IPython.display import display, Markdown
+from datetime import datetime
+
+last_updated = datetime.now().strftime('%Y-%m-%d')
+display(Markdown(f"Update terakhir: {last_updated}"))
+
+```
+
 :::{.callout-warning}
 Tulisan-tulisan pada situs ini diperbarui berkala. 
 Menemukan kesalahan atau _bug_? Silakan laporkan [di sini](https://github.com/ariaghora/mlfs/issues).
