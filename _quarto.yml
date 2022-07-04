@@ -29,8 +29,6 @@ website:
     subtitle: implementasi di balik layar
     alignment: center
     contents:
-      - text: Muka
-        file: index.qmd
       - text: Pendahuluan
         file: pendahuluan.qmd
       - text: Struktur data n-dimensional array
