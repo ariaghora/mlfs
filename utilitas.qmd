@@ -32,6 +32,19 @@ def reduce_at_dim(arr, dim, func, keep_dim=False):
     # # TODO: squeeze
     return result_arr
 
+def reduce(arr, dims, func, keep_dim=False):
+    if isinstance(dims, int):
+        dims = [dims]
+
+    result = reduce_at_dim(arr, dims[0], func, True)
+    for dim in dims[1:]:
+        result = reduce_at_dim(result, dim, func, True)
+
+    # TODO:
+    # if not keep_dim:
+    #     result = squeeze(result)
+    return result
+
 ```
 
 ## Contoh 1: sum
@@ -41,9 +54,11 @@ x = ndarray_from_list([1, 2, 3, 4], 2, 2)
 print("Input:")
 print_ndarray(x)
 print("\nSum by axis 0:")
-print_ndarray(reduce_at_dim(x, 0, lambda x, y: x + y))
+print_ndarray(reduce(x, 0, lambda x, y: x + y))
 print("\nSum by axis 1:")
-print_ndarray(reduce_at_dim(x, 1, lambda x, y: x + y))
+print_ndarray(reduce(x, 1, lambda x, y: x + y))
+print("\nSum by axis 0, then 1:")
+print_ndarray(reduce(x, [0, 1], lambda x, y: x + y))
 ```
 
 ## Contoh 2: max
@@ -58,9 +73,9 @@ x = ndarray_from_list(
 print("Input:")
 print_ndarray(x)
 print("\nMax by axis 0:")
-print_ndarray(reduce_at_dim(x, 0, max))
+print_ndarray(reduce(x, 0, max))
 print("\nMax by axis 1:")
-print_ndarray(reduce_at_dim(x, 1, max))
+print_ndarray(reduce(x, 1, max))
 ```
 
 # Aplikasi _reduce_ untuk statistika
