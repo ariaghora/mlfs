@@ -12,14 +12,72 @@ Penulis berasumsi bahwa pembaca dapat memahami _mental model_ dasar dari suatu s
 Pembahasan ndarray dicukupkan, dan pada bagian ini kita sudah bisa beralih menggunakan NumPy agar dapat melakukan komputasi dengan lebih cepat.
 :::
 
-# Operasi pada ndarray sebagai komputasi graf
-Ekspresi `y = w * x + b` dapat diinterpretasikan dalam graf sebagai berikut (Gambar @fig-komputasi-graf-1):
+## Autograd numerik
+Dengan autograd numerik, kita mencari aproksimasi dari suatu turunan dari fungsi.
+Metode autograd numerik paling sederhana adalah _Newton's difference quotient_ yang dijabarkan sebagai berikut:
+$$
+f'(x) = \lim_{h\to 0} \frac{f(x+h) - f(x)}{h}
+$$
+Dalam python, kita dapat membuat implementasi paling sederhananya sebagai berikut:
+```{python}
+def grad(f, h):
+    def grad_f(x):
+        return (f(x + h) - f(x)) / h
+    return grad_f
+
+# Fungsi kuadrat
+def f(x):
+    return x ** 2
+
+f_grad = grad(f, h=0.0000001)
+
+print("f(x) = x ** 2")
+print("f(3) =", f(3))
+print("f'(3) =", f_grad(3))
+```
+Semakin kecil nilai `h`, maka aproksimasi lebih akurat.
+```{python}
+#| echo: false
+import numpy as np
+import matplotlib.pyplot as plt
+
+step_list = [1e-10, 1e-9, 1e-8, 1e-7, 1e-6, 1e-5, 1e-4, 1e-3, 1e-2, 1e-1, .5][::-1]
+y_list = []
+for step in step_list:
+    f_grad = grad(f, h=step)
+    y_list.append(f_grad(3))
+
+plt.figure(figsize=(6.4, 3))
+plt.plot([str(x) for x in step_list], y_list, label="Aproksimasi turunan")
+plt.xlabel("h")
+plt.ylabel("f'(3)")
+plt.axhline(y=6, c="k", linestyle="--", label="Hasil turunan sebenarnya")
+plt.xticks(rotation=45)
+plt.ylim(5.9, 6.6)
+plt.legend()
+plt.show()
+``` 
+
+Algoritma _machine learning_ modern **menghindari** penggunaan autograd numerik, karena:
+
+- Tentu saja, karena tidak eksak. Hal ini akan mengakibatkan error (karena kesalahan pembulatan) yang cukup serius, khususnya dengan fungsi/model yang lebih kompleks.
+- Lambat. Setidaknya, kompleksitas waktu yang dibutuhkan adalah $O(n^2)$.
+
+## Autograd eksak
+Secara konseptual, autograd eksak akan merekam semua operasi (a.l., aritmatika, manipulasi tensor, dsb.) saat eksekusi.
+Rekaman ini akan menghasilkan graf terarah (_directed graf_) yang menjelaskan bagaimana operasi terjadi.
+Sebagai contoh, ekspresi `y = w * x + b` dapat diinterpretasikan dalam graf sebagai berikut (Gambar @fig-komputasi-graf-1):
 ```{mermaid}
 %%| label: fig-komputasi-graf-1
-%%| fig-cap: Contoh komputasi graf dari ekspresi `y = w * x + b`
+%%| fig-cap: Contoh graf komputasi dari ekspresi `y = w * x + b`
 flowchart LR
     w(w) & x(x) --> *(*)
     *(*) & b(b) --> +(+)
     +(+) --> y
 ```
-# Autograd dengan mode _backward_
+_Leave_ dari graf adalah tensor-tensor input, dan _root_ adalah output.
+Dengan melakukan _tracing_ dari _root_ ke _leave_, kita dapat secara otomatis menghitung gradien.
+Autograd eksak berbasis graf komputasi ini dapat dieksekusi dengan kompleksitas waktu linear.
+
+# Autograd eksak dengan mode _forward_
+# Autograd eksak dengan mode _backward_

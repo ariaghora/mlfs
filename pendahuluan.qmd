@@ -4,7 +4,35 @@
 
 _Machine learning_, atau dalam Bahasa Indonesianya _pembelajaran mesin_, adalah cabang dari disiplin ilmu kecerdasan buatan yang berfokus membangun sistem cerdas yang mampu belajar dari data.
 
-## Di balik layar
+@mitchell1997machine memberikan definisi singkat dari _learning_ (atau "belajar", dalam konteks algoritma pembelajaran), yaitu:
+
+> "Suatu program komputer dikatakan 'belajar' dari pengalaman (_experience_) $E$ pada tugas (_task_) $T$ yang performanya terukur dengan ukuran $P$."
+
+### Pengalaman (_experience_) $E$
+Algoritma pembelajaran belajar dari pengalaman, dan pengalaman yang dimaksud adalah **dataset**.
+Secara umum dapat dibagi setidaknya dua kategori: **_supervised learning_** dan **_unsupervised learning_**.
+
+- **_Supervised learning_** adalah pembelajaran dengan dataset yang disertai label/target yang diketahui.
+- **_Unsupervised learning_** adalah pembelajaran dengan dataset yang tidak disertai label/target.
+
+Kita akan lebih banyak fokus pada _supervised learning_.
+
+### Tugas (_task_) $T$ dalam _supervised learning_
+Ada beberapa jenis tugas yang dapat dilakukan dengan _machine learning_ pada suatu program komputer.
+Antara lain:
+
+- Regresi (_regression_): algoritma pembelajaran akan mempelajari suatu fungsi $f:\mathbb{R}^n\rightarrow\mathbb{R}$.
+  Dengan kata lain, pada tugas ini, suatu program komputer diminta untuk memprediksi nilai numerik berdasarkan suatu input.
+- Klasifikasi (_classification_): algoritma pembelajaran akan mempelajari $f:\mathbb{R}^n\rightarrow\{1, ..., k\}$.
+  Pada tugas ini, suatu program komputer diminta untuk menentukan kelas dari suatu data.
+
+### Performa $P$
+Performa adalah ukuran dari hasil yang diberikan oleh algoritma pembelajaran. 
+Misalnya, untuk klasifikasi, salah satu performa yang dapat dijadikan acuan adalah akurasi dari suatu model.
+Akurasi diperoleh dari persentase prediksi yang benar dari data yang diberikan.
+
+
+## Implementasi di balik layar
 Maksud dari di balik layar ialah implementasi berbagai aspek _machine learning_ yang terjadi di balik layar dari awal, dengan sedikit (hingga tanpa) _library_ tambahan.
 Walau implementasi dilakukan mulai awal, secara bertahap pembaca akan diperkenalkan dengan _library_ tambahan yang penting.
 
@@ -15,6 +43,7 @@ Mengutip @grus2019data:
 
 Penulis meyakini bahwa hal itu juga berlaku pada _machine learning_.
 Cara terbaik untuk menggunakan pustaka _machine learning_ secara efektif dan komprehensif adalah dengan mengalami proses pembuatannya sendiri.
+Kita tidak menargetkan untuk membuat implementasi yang paling efektif, tetapi kita akan fokus pada pemahaman cara kerja pustaka _machine learning_ di balik layar.
 
 ## Konvensi
 
